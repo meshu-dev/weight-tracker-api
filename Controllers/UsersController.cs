@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Controllers
 {
@@ -7,6 +8,12 @@ namespace WeightTracker.Api.Controllers
     {
         [HttpGet(Name = "GetUsers")]
         public IActionResult GetUsers()
+        {
+            return Ok(new { Moniker = "ATL201", Name = "Atlanta Code Camp" });
+        }
+
+        [HttpPost()]
+        public IActionResult Post(UserModel model)
         {
             return Ok(new { Moniker = "ATL201", Name = "Atlanta Code Camp" });
         }
