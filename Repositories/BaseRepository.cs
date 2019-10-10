@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using AutoMapper;
 using WeightTracker.Api.Migrations;
 
 namespace WeightTracker.Api.Repositories
@@ -6,13 +6,15 @@ namespace WeightTracker.Api.Repositories
     public abstract class BaseRepository : IBaseRepository
     {
         protected readonly DataContext _context;
+        protected readonly IMapper _mapper;
 
-        public BaseRepository(DataContext context)
+        public BaseRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public void Add<T>(T entity) where T : class
+        public void Create<T>(T entity) where T : class
         {
             _context.Add(entity);
         }

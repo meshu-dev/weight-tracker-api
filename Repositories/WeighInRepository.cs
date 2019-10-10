@@ -1,23 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using System;
 using System.Linq;
-using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
+using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
     public class WeighInRepository : BaseRepository
     {
-        public WeighInRepository(DataContext context) : base(context) { }
+        public WeighInRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
 
-        public WeighIn Get(Guid id)
+        public WeighInModel Read(Guid id)
         {
-            return _context.WeighIns.Find(id);
+            var entity = _context.WeighIns.Find(id);
+
+            if (entity == null) return null;
+
+            return _mapper.Map<WeighInModel>(entity);
         }
 
-        public IEnumerable<WeighIn> GetRows()
+        public WeighInModel[] ReadAll()
         {
-            return _context.WeighIns.ToList();
+            var entities = _context.WeighIns.ToArray();
+
+            if (entities == null) return null;
+
+            return _mapper.Map<WeighInModel[]>(entities);
         }
     }
 }

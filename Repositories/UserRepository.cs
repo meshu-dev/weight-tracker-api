@@ -1,24 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using System;
 using System.Linq;
-using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
+using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
     public class UserRepository : BaseRepository
     {
-        public UserRepository(DataContext context) : base(context) {}
+        public UserRepository(DataContext context, IMapper mapper) : base(context, mapper) {}
 
-        public User Get(Guid id)
+        public UserModel Read(Guid id)
         {
-            var user = _context.Users.Find(id);
-            return user;            
+            var entity = _context.Users.Find(id);
+
+            if (entity == null) return null;
+
+            return _mapper.Map<UserModel>(entity);
         }
 
-        public IEnumerable<User> GetRows()
+        public UserModel[] ReadAll()
         {
-            return _context.Users.ToList();
+            var entities = _context.WeighIns.ToArray();
+
+            if (entities == null) return null;
+
+            return _mapper.Map<UserModel[]>(entities);
         }
     }
 }
