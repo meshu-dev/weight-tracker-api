@@ -12,7 +12,8 @@ namespace WeightTracker.Api.Repositories
 
         public User Get(Guid id)
         {
-            return _context.Users.Find(id);
+            var user = _context.Users.Find(id);
+            return user;            
         }
 
         public IEnumerable<User> GetRows()

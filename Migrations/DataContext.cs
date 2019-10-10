@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Diagnostics;
-using System.IO;
 using WeightTracker.Api.Entities;
 
 namespace WeightTracker.Api.Migrations
@@ -11,31 +9,16 @@ namespace WeightTracker.Api.Migrations
         public DbSet<User> Users { get; set; }
         public DbSet<WeighIn> WeighIns { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var config = getConfig();
+        private readonly IConfiguration _config;
 
-            optionsBuilder
-                .UseSqlServer(config.GetConnectionString("SqlServer"));
+        public DataContext(DbContextOptions options, IConfiguration config) : base(options)
+        {
+            _config = config;
         }
 
-        private IConfiguration getConfig()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string pathToContentRoot = Directory.GetCurrentDirectory();
-            string json = Path.Combine(pathToContentRoot, "appsettings.json");
-
-            if (!File.Exists(json))
-            {
-                string pathToExe = Process.GetCurrentProcess().MainModule.FileName;
-                pathToContentRoot = Path.GetDirectoryName(pathToExe);
-            }
-
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(pathToContentRoot)
-                .AddJsonFile("appsettings.json");
-
-            IConfiguration config = configurationBuilder.Build();
-            return config;
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("SqlServer"));
         }
     }
 }

@@ -7,9 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20191009001326_InitialCreate.cs" />
     <Compile Remove="Migrations\20191009001326_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191010165826_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191010165826_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>

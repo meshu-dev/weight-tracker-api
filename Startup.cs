@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace WeightTracker.Api
 {
@@ -19,6 +20,8 @@ namespace WeightTracker.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllers();
         }
 
@@ -33,7 +36,6 @@ namespace WeightTracker.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

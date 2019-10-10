@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WeightTracker.Api.Entities;
+using WeightTracker.Api.Migrations;
 
 namespace WeightTracker.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191010165826_InitialCreate")]
+    [Migration("20191010203621_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
