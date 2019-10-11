@@ -8,6 +8,9 @@ namespace WeightTracker.Api.Migrations
     {
         public DataProfile()
         {
+            this.CreateMap<Unit, UnitModel>()
+                .ReverseMap();
+
             this.CreateMap<User, UserModel>()
                 .ReverseMap();
 

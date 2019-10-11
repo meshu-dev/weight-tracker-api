@@ -6,6 +6,7 @@ namespace WeightTracker.Api.Migrations
 {
     public class DataContext : DbContext
     {
+        public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WeighIn> WeighIns { get; set; }
 
