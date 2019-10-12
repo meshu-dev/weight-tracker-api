@@ -5,7 +5,7 @@ namespace WeightTracker.Api.Models
 {
     public class WeighInModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Value { get; set; }

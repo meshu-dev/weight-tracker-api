@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using WeightTracker.Api.Models;
+using WeightTracker.Api.Repositories;
 
 namespace WeightTracker.Api.Controllers
 {
-    public class UnitsController
+    [Route("units")]
+    public class UnitsController : Controller
     {
+        private IRepository<UnitModel> _unitRepository;
 
+        public UnitsController(IRepository<UnitModel> unitRepository)
+        {
+            _unitRepository = unitRepository;
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            //return Ok(new { Moniker = "ATL201", Name = "Atlanta Code Camp" });
+
+            return Ok(_unitRepository.ReadAll());
+        }
     }
 }

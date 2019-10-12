@@ -23,7 +23,7 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
-        public UserModel Read(Guid id)
+        public UserModel Read(int id)
         {
             var entity = _context.Users.Find(id);
 

@@ -3,7 +3,7 @@ using WeightTracker.Api.Migrations;
 
 namespace WeightTracker.Api.Repositories
 {
-    public abstract class BaseRepository : IBaseRepository
+    public abstract class BaseRepository
     {
         protected readonly DataContext _context;
         protected readonly IMapper _mapper;

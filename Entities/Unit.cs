@@ -1,13 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace WeightTracker.Api.Entities
+﻿namespace WeightTracker.Api.Entities
 {
-    public class Unit
+    public class Unit : IEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
     }
 }

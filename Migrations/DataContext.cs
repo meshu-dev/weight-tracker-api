@@ -21,5 +21,15 @@ namespace WeightTracker.Api.Migrations
         {
             optionsBuilder.UseSqlServer(_config.GetConnectionString("SqlServer"));
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Unit>()
+              .HasData(
+                new { Id = 1, Name = "Pounds" },
+                new { Id = 2, Name = "Kilograms" },
+                new { Id = 3, Name = "Stones" }
+              );
+        }
     }
 }

@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using WeightTracker.Api.Repositories;
+using WeightTracker.Api.Models;
+using WeightTracker.Api.Migrations;
 
 namespace WeightTracker.Api
 {
@@ -20,7 +23,10 @@ namespace WeightTracker.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddDbContext<DataContext>();
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IRepository<UnitModel>, UnitRepository>();
 
             services.AddControllers();
         }

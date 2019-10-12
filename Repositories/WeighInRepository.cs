@@ -24,7 +24,7 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
-        public WeighInModel Read(Guid id)
+        public WeighInModel Read(int id)
         {
             var entity = _context.WeighIns.Find(id);
 

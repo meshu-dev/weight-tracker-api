@@ -2,10 +2,8 @@
 
 namespace WeightTracker.Api.Models
 {
-    public class UnitModel
+    public class UnitModel : IModel
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
     }
 }
