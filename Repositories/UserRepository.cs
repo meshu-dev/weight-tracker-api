@@ -7,63 +7,41 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
-    public class UserRepository : IRepository<UserModel>
+    public class UserRepository : Repository<UserModel>
     {
-        protected readonly DataContext _context;
-        protected readonly IMapper _mapper;
+        public UserRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
 
-        public UserRepository(DataContext context, IMapper mapper)
+        public override UserModel Create(UserModel model)
         {
-            _context = context;
-            _mapper = mapper;
-        }
+            var entity = mapper.Map<User>(model);
 
-        public UserModel Create(UserModel model)
-        {
-            var entity = _mapper.Map<User>(model);
-
-            _context.Add(entity);
+            context.Add(entity);
 
             if (Save() == true) {
-                return _mapper.Map<UserModel>(entity);
+                return mapper.Map<UserModel>(entity);
             }
             return null;
         }
 
-        public UserModel Create(IModel model)
+        public override UserModel Read(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public UserModel Delete(UserModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserModel Delete(IModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserModel Read(int id)
-        {
-            var entity = _context.Users.Find(id);
+            var entity = context.Users.Find(id);
 
             if (entity == null) return null;
 
-            return _mapper.Map<UserModel>(entity);
+            return mapper.Map<UserModel>(entity);
         }
 
-        public UserModel[] ReadAll()
+        public override UserModel[] ReadAll()
         {
-            var entities = _context.WeighIns.ToArray();
+            var entities = context.Units.ToArray();
 
             if (entities == null) return null;
 
-            return _mapper.Map<UserModel[]>(entities);
+            return mapper.Map<UserModel[]>(entities);
         }
 
-        public bool Save()
+        public override UserModel Delete(UserModel model)
         {
             throw new NotImplementedException();
         }

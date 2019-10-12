@@ -6,11 +6,10 @@ namespace WeightTracker.Api.Migrations
 {
     public class DataContext : DbContext
     {
+        private readonly IConfiguration _config;
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WeighIn> WeighIns { get; set; }
-
-        private readonly IConfiguration _config;
 
         public DataContext(DbContextOptions options, IConfiguration config) : base(options)
         {

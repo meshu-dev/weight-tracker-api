@@ -14,11 +14,15 @@ namespace WeightTracker.Api.Controllers
             _unitRepository = unitRepository;
         }
 
+        [HttpGet("{id:int}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_unitRepository.Read(id));
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            //return Ok(new { Moniker = "ATL201", Name = "Atlanta Code Camp" });
-
             return Ok(_unitRepository.ReadAll());
         }
     }
