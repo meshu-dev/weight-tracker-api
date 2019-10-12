@@ -7,9 +7,9 @@ namespace WeightTracker.Api.Controllers
     [Route("units")]
     public class UnitsController : Controller
     {
-        private IRepository<UnitModel> _unitRepository;
+        private Repository<UnitModel> _unitRepository;
 
-        public UnitsController(IRepository<UnitModel> unitRepository)
+        public UnitsController(Repository<UnitModel> unitRepository)
         {
             _unitRepository = unitRepository;
         }

@@ -7,21 +7,43 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
-    public class WeighInRepository : BaseRepository
+    public class WeighInRepository : IRepository<WeighInModel>
     {
-        public WeighInRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
+        protected readonly DataContext _context;
+        protected readonly IMapper _mapper;
+
+        public WeighInRepository(DataContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
 
         public WeighInModel Create(WeighInModel model)
         {
             var entity = _mapper.Map<WeighIn>(model);
 
-            Create(entity);
+            _context.Add(entity);
 
             if (Save() == true)
             {
                 return _mapper.Map<WeighInModel>(entity);
             }
             return null;
+        }
+
+        public WeighInModel Create(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public WeighInModel Delete(WeighInModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public WeighInModel Delete(IModel model)
+        {
+            throw new NotImplementedException();
         }
 
         public WeighInModel Read(int id)
@@ -40,6 +62,11 @@ namespace WeightTracker.Api.Repositories
             if (entities == null) return null;
 
             return _mapper.Map<WeighInModel[]>(entities);
+        }
+
+        public bool Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }

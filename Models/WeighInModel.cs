@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WeightTracker.Api.Models
 {
-    public class WeighInModel
+    public class WeighInModel : IModel
     {
         public int Id { get; set; }
 

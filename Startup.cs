@@ -26,7 +26,8 @@ namespace WeightTracker.Api
             services.AddDbContext<DataContext>();
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<IRepository<UnitModel>, UnitRepository>();
+            //services.AddScoped<IRepository<UnitModel>, UnitRepository>();
+            services.AddScoped<Repository<UnitModel>, UnitRepository>();
 
             services.AddControllers();
         }

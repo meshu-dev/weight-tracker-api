@@ -7,20 +7,42 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
-    public class UserRepository : BaseRepository
+    public class UserRepository : IRepository<UserModel>
     {
-        public UserRepository(DataContext context, IMapper mapper) : base(context, mapper) {}
+        protected readonly DataContext _context;
+        protected readonly IMapper _mapper;
+
+        public UserRepository(DataContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
 
         public UserModel Create(UserModel model)
         {
             var entity = _mapper.Map<User>(model);
 
-            Create(entity);
+            _context.Add(entity);
 
             if (Save() == true) {
                 return _mapper.Map<UserModel>(entity);
             }
             return null;
+        }
+
+        public UserModel Create(IModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserModel Delete(UserModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserModel Delete(IModel model)
+        {
+            throw new NotImplementedException();
         }
 
         public UserModel Read(int id)
@@ -39,6 +61,11 @@ namespace WeightTracker.Api.Repositories
             if (entities == null) return null;
 
             return _mapper.Map<UserModel[]>(entities);
+        }
+
+        public bool Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }

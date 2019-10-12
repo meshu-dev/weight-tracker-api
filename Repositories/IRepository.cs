@@ -1,5 +1,4 @@
-﻿using WeightTracker.Api.Entities;
-using WeightTracker.Api.Models;
+﻿using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {

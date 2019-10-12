@@ -7,18 +7,11 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
-    public class UnitRepository : IRepository<UnitModel>
+    public class UnitRepository : Repository<UnitModel>
     {
-        protected readonly DataContext _context;
-        protected readonly IMapper _mapper;
+        public UnitRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
 
-        public UnitRepository(DataContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
-        }
-
-        public UnitModel Create(UnitModel model)
+        public override UnitModel Create(UnitModel model)
         {
             var entity = _mapper.Map<Unit>(model);
 
@@ -40,7 +33,7 @@ namespace WeightTracker.Api.Repositories
             return _mapper.Map<UnitModel>(entity);
         }
 
-        public UnitModel[] ReadAll()
+        public override UnitModel[] ReadAll()
         {
             var entities = _context.Units.ToArray();
 
@@ -49,15 +42,9 @@ namespace WeightTracker.Api.Repositories
             return _mapper.Map<UnitModel[]>(entities);
         }
 
-        public UnitModel Delete(UnitModel model)
+        public override UnitModel Delete(UnitModel model)
         {
             throw new NotImplementedException();
-        }
-
-        public bool Save()
-        {
-            int result = _context.SaveChanges();
-            return result > 0 ? true : false;
         }
     }
 }
