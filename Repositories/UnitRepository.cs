@@ -33,7 +33,12 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UnitModel[]>(entities);
         }
 
-        public override bool Delete(int id)
+        public override UnitModel Update(UnitModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(UnitModel model)
         {
             throw new NotImplementedException();
         }

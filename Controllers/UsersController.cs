@@ -69,8 +69,10 @@ namespace WeightTracker.Api.Controllers
                 var user = repository.Read(id);
                 if (user == null) return NotFound($"User doesn't exist with Id {id}");
 
-                user = repository.Create(model);
-                if (user == null) return BadRequest("User could not be created");
+                model.Id = id;
+
+                user = repository.Update(model);
+                if (user == null) return BadRequest("User could not be updated");
 
                 return Ok(user);
             }

@@ -41,6 +41,20 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UserModel[]>(entities);
         }
 
+        public override UserModel Update(UserModel model)
+        {
+            var entity = context.Users.Find(model.Id);
+            if (entity == null) return null;
+
+            mapper.Map(model, entity);
+
+            if (Save() == true)
+            {
+                return mapper.Map<UserModel>(entity);
+            }
+            return null;
+        }
+
         public override bool Delete(UserModel model)
         {
             var entity = mapper.Map<User>(model);
