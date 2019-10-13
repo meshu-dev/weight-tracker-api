@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace WeightTracker.Api.Controllers
 {
-    [Route("weights")]
+    [Route("weighins")]
     [ApiController]
     public class WeighInsController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using System;
 using System.Linq;
+using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
 using WeightTracker.Api.Models;
 
@@ -12,7 +12,15 @@ namespace WeightTracker.Api.Repositories
 
         public override UnitModel Create(UnitModel model)
         {
-            throw new Exception("Creating units is not allowed");
+            var entity = mapper.Map<Unit>(model);
+
+            context.Add(entity);
+
+            if (Save() == true)
+            {
+                return mapper.Map<UnitModel>(entity);
+            }
+            return null;
         }
 
         public override UnitModel Read(int id)
@@ -35,12 +43,24 @@ namespace WeightTracker.Api.Repositories
 
         public override UnitModel Update(UnitModel model)
         {
-            throw new NotImplementedException();
+            var entity = context.Units.Find(model.Id);
+            if (entity == null) return null;
+
+            mapper.Map(model, entity);
+
+            if (Save() == true)
+            {
+                return mapper.Map<UnitModel>(entity);
+            }
+            return null;
         }
 
         public override bool Delete(UnitModel model)
         {
-            throw new NotImplementedException();
+            var entity = mapper.Map<Unit>(model);
+
+            context.Units.Remove(entity);
+            return Save();
         }
     }
 }

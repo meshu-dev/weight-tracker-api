@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System;
 using System.Linq;
 using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
@@ -44,12 +43,24 @@ namespace WeightTracker.Api.Repositories
 
         public override WeighInModel Update(WeighInModel model)
         {
-            throw new NotImplementedException();
+            var entity = context.WeighIns.Find(model.Id);
+            if (entity == null) return null;
+
+            mapper.Map(model, entity);
+
+            if (Save() == true)
+            {
+                return mapper.Map<WeighInModel>(entity);
+            }
+            return null;
         }
 
         public override bool Delete(WeighInModel model)
         {
-            throw new NotImplementedException();
+            var entity = mapper.Map<WeighIn>(model);
+
+            context.WeighIns.Remove(entity);
+            return Save();
         }
     }
 }
