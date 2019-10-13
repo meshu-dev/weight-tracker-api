@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
@@ -29,12 +30,13 @@ namespace WeightTracker.Api.Repositories
 
             if (entity == null) return null;
 
+            context.Entry(entity).State = EntityState.Detached;
             return mapper.Map<WeighInModel>(entity);
         }
 
         public override WeighInModel[] ReadAll()
         {
-            var entities = context.WeighIns.ToArray();
+            var entities = context.WeighIns.AsNoTracking().ToArray();
 
             if (entities == null) return null;
 
