@@ -41,13 +41,11 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UserModel[]>(entities);
         }
 
-        public override bool Delete(int id)
+        public override bool Delete(UserModel model)
         {
-            var entity = context.Users.Find(id);
-            if (entity == null) return false;
+            var entity = mapper.Map<User>(model);
 
             context.Users.Remove(entity);
-
             return Save();
         }
     }

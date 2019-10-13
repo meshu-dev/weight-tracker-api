@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 
@@ -67,10 +67,7 @@ namespace WeightTracker.Api.Controllers
             try
             {
                 var user = repository.Read(id);
-                if (user == null)
-                {
-                    return NotFound($"User doesn't exist with Id {id}");
-                }
+                if (user == null) return NotFound($"User doesn't exist with Id {id}");
 
                 user = repository.Create(model);
                 if (user == null) return BadRequest("User could not be created");
@@ -88,17 +85,11 @@ namespace WeightTracker.Api.Controllers
         public IActionResult Delete(int id)
         {
             var user = repository.Read(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            if (user == null) return NotFound();
 
-            var isDeleted = repository.Delete(id);
+            var isDeleted = repository.Delete(user);
+            if (isDeleted == true) return NoContent();
 
-            if (isDeleted == true)
-            {
-                return NoContent();
-            }
             return NotFound("Couldn't delete User");
         }
     }
