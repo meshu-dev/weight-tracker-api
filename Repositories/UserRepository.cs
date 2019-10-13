@@ -34,16 +34,21 @@ namespace WeightTracker.Api.Repositories
 
         public override UserModel[] ReadAll()
         {
-            var entities = context.Units.ToArray();
+            var entities = context.Users.ToArray();
 
             if (entities == null) return null;
 
             return mapper.Map<UserModel[]>(entities);
         }
 
-        public override UserModel Delete(UserModel model)
+        public override bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = context.Users.Find(id);
+            if (entity == null) return false;
+
+            context.Users.Remove(entity);
+
+            return Save();
         }
     }
 }

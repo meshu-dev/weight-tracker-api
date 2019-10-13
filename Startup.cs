@@ -24,10 +24,18 @@ namespace WeightTracker.Api
         {
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<DataContext>();
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(typeof(Startup));
 
-            //services.AddScoped<IRepository<UnitModel>, UnitRepository>();
+            // AutoMapper
+            var mappingConfig = new MapperConfiguration(mappingConfig =>
+            {
+                mappingConfig.AddProfile(new MappingProfile());
+            });
+            services.AddSingleton(mappingConfig.CreateMapper());
+
             services.AddScoped<Repository<UnitModel>, UnitRepository>();
+            services.AddScoped<Repository<UserModel>, UserRepository>();
+            services.AddScoped<Repository<WeighInModel>, WeighInRepository>();
 
             services.AddControllers();
         }

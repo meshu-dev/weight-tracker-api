@@ -1,7 +1,11 @@
-﻿namespace WeightTracker.Api.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WeightTracker.Api.Entities
 {
     public class Unit : IEntity
     {
+        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

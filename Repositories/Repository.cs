@@ -21,7 +21,7 @@ namespace WeightTracker.Api.Repositories
 
         public abstract T[] ReadAll();
 
-        public abstract T Delete(T model);
+        public abstract bool Delete(int id);
 
         public bool Save()
         {

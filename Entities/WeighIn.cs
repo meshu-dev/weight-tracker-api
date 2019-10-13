@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeightTracker.Api.Entities
 {
-    public class WeighIn
+    public class WeighIn : IEntity
     {
         [Key]
         public int Id { get; set; }

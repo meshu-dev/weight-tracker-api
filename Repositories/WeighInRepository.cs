@@ -42,7 +42,7 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<WeighInModel[]>(entities);
         }
 
-        public override WeighInModel Delete(WeighInModel model)
+        public override bool Delete(int id)
         {
             throw new NotImplementedException();
         }

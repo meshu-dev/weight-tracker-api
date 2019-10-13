@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WeightTracker.Api.Entities
 {
-    public class User
+    public class User : IEntity
     {
         [Key]
         public int Id { get; set; }

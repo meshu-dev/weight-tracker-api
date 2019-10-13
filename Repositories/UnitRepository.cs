@@ -33,9 +33,9 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UnitModel[]>(entities);
         }
 
-        public override UnitModel Delete(UnitModel model)
+        public override bool Delete(int id)
         {
-            throw new Exception("Deleting units is not allowed");
+            throw new NotImplementedException();
         }
     }
 }

@@ -4,9 +4,9 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Migrations
 {
-    public class DataProfile : Profile
+    public class MappingProfile : Profile
     {
-        public DataProfile()
+        public MappingProfile()
         {
             this.CreateMap<Unit, UnitModel>()
                 .ReverseMap();

@@ -2,6 +2,7 @@
 
 namespace WeightTracker.Api.Controllers
 {
+    [ApiController]
     public class HomeController : Controller
     {
         [HttpGet]

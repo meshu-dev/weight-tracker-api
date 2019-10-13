@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 namespace WeightTracker.Api.Controllers
 {
     [Route("weights")]
+    [ApiController]
     public class WeighInsController : Controller
     {
         [HttpGet]
