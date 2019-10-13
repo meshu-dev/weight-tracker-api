@@ -7,6 +7,8 @@ using AutoMapper;
 using WeightTracker.Api.Repositories;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Migrations;
+using System.IdentityModel.Tokens.Jwt;
+using WeightTracker.Api.Helpers;
 
 namespace WeightTracker.Api
 {
@@ -32,6 +34,10 @@ namespace WeightTracker.Api
                 mappingConfig.AddProfile(new MappingProfile());
             });
             services.AddSingleton(mappingConfig.CreateMapper());
+
+            // JWT Helper
+            var jwtHelper = new JwtHelper(new JwtSecurityTokenHandler(), Configuration);
+            services.AddSingleton(jwtHelper);
 
             services.AddScoped<Repository<UnitModel>, UnitRepository>();
             services.AddScoped<Repository<UserModel>, UserRepository>();
