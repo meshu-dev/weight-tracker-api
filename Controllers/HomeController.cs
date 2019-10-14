@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using WeightTracker.Api.Helpers;
 
 namespace WeightTracker.Api.Controllers
@@ -25,6 +26,18 @@ namespace WeightTracker.Api.Controllers
         public IActionResult Test()
         {
             var token = _jwtHelper.CreateToken("Joker2");
+            var isValid = _jwtHelper.VerifyToken(token);
+
+            return Ok(new { Token = token, IsValid = isValid, TokenExpires = (DateTime.Now.AddMinutes(1)).ToString() });
+        }
+
+        [HttpGet]
+        [Route("test2")]
+        public IActionResult Test2()
+        {
+            //var token = _jwtHelper.CreateToken("Joker2");
+
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiSm9rZXIyIiwiZXhwIjoxNTcwOTg2NjQzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYzOTM5LyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIn0.DYkwwLV0EfOIeu-_dgnTc_JtzuAtU2KkvZPGbSO_jnY";
             var isValid = _jwtHelper.VerifyToken(token);
 
             return Ok(new { Token = token, IsValid = isValid });

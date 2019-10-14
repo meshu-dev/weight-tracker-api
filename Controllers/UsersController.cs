@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 

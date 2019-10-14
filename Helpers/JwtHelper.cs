@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Helpers
 {
@@ -29,7 +28,7 @@ namespace WeightTracker.Api.Helpers
               _config.GetValue<string>("Jwt:Issuer"),
               _config.GetValue<string>("Jwt:Issuer"),
               claims: claims,
-              expires: DateTime.Now.AddMinutes(30),
+              expires: DateTime.Now.AddMinutes(1),
               signingCredentials: credetials
            );
 
@@ -96,15 +95,19 @@ namespace WeightTracker.Api.Helpers
             TokenValidationParameters validationParameters = new TokenValidationParameters()
             {
                 ValidAudience = _config.GetValue<string>("Jwt:Issuer"),
-                ValidateAudience = true,
                 ValidIssuer = _config.GetValue<string>("Jwt:Issuer"),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetValue<string>("Jwt:Key"))),
+                ValidateAudience = true,
                 ValidateIssuer = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetValue<string>("Jwt:Key")))
-        };
+                ValidateIssuerSigningKey = true,
+               // ValidateLifetime = true,
+                RequireExpirationTime = true
+            };
 
             return validationParameters;
         }
 
+        /*
         private bool LifetimeValidator(
             DateTime? notBefore,
             DateTime? expires,
@@ -118,6 +121,6 @@ namespace WeightTracker.Api.Helpers
             { valid = true; }
 
             return valid;
-        }
+        } */
     }
 }

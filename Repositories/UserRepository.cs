@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
@@ -27,6 +26,18 @@ namespace WeightTracker.Api.Repositories
         public override UserModel Read(int id)
         {
             var entity = context.Users.Find(id);
+
+            if (entity == null) return null;
+
+            context.Entry(entity).State = EntityState.Detached;
+            return mapper.Map<UserModel>(entity);
+        }
+
+        public UserModel ReadByEmail(string email)
+        {
+            var entity = context.Users
+                                .Where(u => u.Email == email)
+                                .Select(u => u);
 
             if (entity == null) return null;
 
