@@ -13,10 +13,13 @@
     <Compile Remove="Migrations\20191010203621_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20191011223941_Initial.cs" />
     <Compile Remove="Migrations\20191011223941_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20191014205331_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191014205331_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>

@@ -44,6 +44,7 @@ namespace WeightTracker.Api
             services.AddScoped<Repository<WeighInModel>, WeighInRepository>();
 
             services.AddControllers();
+            services.AddMvc().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

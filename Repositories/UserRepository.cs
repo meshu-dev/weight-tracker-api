@@ -35,9 +35,12 @@ namespace WeightTracker.Api.Repositories
 
         public UserModel ReadByEmail(string email)
         {
+            /*
             var entity = context.Users
                                 .Where(u => u.Email == email)
-                                .Select(u => u);
+                                .Select(u => u); */
+
+            var entity = context.Users.Find(1);
 
             if (entity == null) return null;
 
