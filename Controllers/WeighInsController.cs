@@ -1,23 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 
 namespace WeightTracker.Api.Controllers
 {
-    [Route("weighins")]
     [ApiController]
-    public class WeighInsController : ApiController<WeighInModel>
+    [Route("weighins")]
+    public class WeighInsController : Controller
     {
-        public WeighInsController(Repository<WeighInModel> repository) : base(repository) { }
+        protected readonly WeighInRepository weighInRepository;
+        protected readonly UserRepository userRepository;
+
+        public WeighInsController(
+            Repository<WeighInModel> weighInRepository,
+            Repository<UserModel> userRepository
+        )
+        {
+            this.weighInRepository = (WeighInRepository) weighInRepository;
+            this.userRepository = (UserRepository)userRepository;
+        }
 
         [HttpPost()]
         public IActionResult Post(WeighInModel model)
         {
             try
             {
-                var weighIn = repository.Create(model);
+                var user = userRepository.Read(model.UserId);
+                if (user == null) return BadRequest("User does not exist with provided Id");
+
+                var weighIn = weighInRepository.Create(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be created");
 
                 return Ok(weighIn);
@@ -34,7 +47,7 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var weighIn = repository.Read(id);
+                var weighIn = weighInRepository.Read(id);
                 if (weighIn == null) return NotFound($"Weigh in does not exist with Id {id}");
 
                 return Ok(weighIn);
@@ -50,7 +63,7 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var weighIns = repository.ReadAll();
+                var weighIns = weighInRepository.ReadAll();
                 if (weighIns == null) return NotFound($"No weigh ins are available");
 
                 return Ok(weighIns);
@@ -66,12 +79,15 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var weighIn = repository.Read(id);
+                var user = userRepository.Read(model.UserId);
+                if (user == null) return BadRequest("User does not exist with provided Id");
+
+                var weighIn = weighInRepository.Read(id);
                 if (weighIn == null) return NotFound($"Weigh in doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                weighIn = repository.Update(model);
+                weighIn = weighInRepository.Update(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be updated");
 
                 return Ok(weighIn);
@@ -86,10 +102,10 @@ namespace WeightTracker.Api.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
-            var weighIn = repository.Read(id);
+            var weighIn = weighInRepository.Read(id);
             if (weighIn == null) return NotFound();
 
-            var isDeleted = repository.Delete(weighIn);
+            var isDeleted = weighInRepository.Delete(weighIn);
             if (isDeleted == true) return NoContent();
 
             return NotFound("Couldn't delete Weigh in");

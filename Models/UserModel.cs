@@ -8,12 +8,14 @@ namespace WeightTracker.Api.Models
     {
         public int Id { get; set; }
 
+        public int UnitId { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        public string _password;
+        private string _password;
 
         public string Password
         {

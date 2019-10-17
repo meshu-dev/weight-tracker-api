@@ -13,7 +13,8 @@ namespace WeightTracker.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,14 +27,21 @@ namespace WeightTracker.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UnitId = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,9 +50,9 @@ namespace WeightTracker.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
                     Value = table.Column<string>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,18 +67,23 @@ namespace WeightTracker.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Units",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Pounds" });
+                columns: new[] { "Id", "Name", "ShortName" },
+                values: new object[] { 1, "Kilograms", "Kg" });
 
             migrationBuilder.InsertData(
                 table: "Units",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Kilograms" });
+                columns: new[] { "Id", "Name", "ShortName" },
+                values: new object[] { 2, "Pounds", "Lb" });
 
             migrationBuilder.InsertData(
                 table: "Units",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 3, "Stones" });
+                columns: new[] { "Id", "Name", "ShortName" },
+                values: new object[] { 3, "Stones", "St" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_UnitId",
+                table: "Users",
+                column: "UnitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WeighIns_UserId",
@@ -81,13 +94,13 @@ namespace WeightTracker.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Units");
-
-            migrationBuilder.DropTable(
                 name: "WeighIns");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Units");
         }
     }
 }

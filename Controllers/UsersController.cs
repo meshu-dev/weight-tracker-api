@@ -1,26 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 
 namespace WeightTracker.Api.Controllers
 {
-    [Route("users")]
     [ApiController]
-    public class UsersController : ApiController<UserModel>
+    [Route("users")]
+    public class UsersController : Controller
     {
-        public UsersController(Repository<UserModel> repository) : base(repository) { }
+        protected readonly UserRepository userRepository;
+        protected readonly UnitRepository unitRepository;
+
+        public UsersController(
+            Repository<UserModel> userRepository,
+            Repository<UnitModel> unitRepository
+        ) {
+            this.userRepository = (UserRepository) userRepository;
+            this.unitRepository = (UnitRepository) unitRepository;
+        }
 
         [HttpPost()]
         public IActionResult Post(UserModel model)
         {
             try
             {
-                var user = repository.Create(model);
+                var unit = unitRepository.Read(model.UnitId);
+                if (unit == null) return BadRequest("Unit does not exist with provided Id");
+
+                var user = userRepository.Create(model);
                 if (user == null) return BadRequest("User could not be created");
 
                 return Ok(user);
@@ -37,7 +46,7 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var user = repository.Read(id);
+                var user = userRepository.Read(id);
                 if (user == null) return NotFound($"User does not exist with Id {id}");
 
                 return Ok(user);
@@ -53,7 +62,7 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var users = repository.ReadAll();
+                var users = userRepository.ReadAll();
                 if (users == null) return NotFound($"No users are available");
 
                 return Ok(users);
@@ -69,12 +78,15 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var user = repository.Read(id);
+                var unit = unitRepository.Read(model.UnitId);
+                if (unit == null) return BadRequest("Unit does not exist with provided Id");
+
+                var user = userRepository.Read(id);
                 if (user == null) return NotFound($"User doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                user = repository.Update(model);
+                user = userRepository.Update(model);
                 if (user == null) return BadRequest("User could not be updated");
 
                 return Ok(user);
@@ -89,10 +101,10 @@ namespace WeightTracker.Api.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
-            var user = repository.Read(id);
+            var user = userRepository.Read(id);
             if (user == null) return NotFound();
 
-            var isDeleted = repository.Delete(user);
+            var isDeleted = userRepository.Delete(user);
             if (isDeleted == true) return NoContent();
 
             return NotFound("Couldn't delete User");

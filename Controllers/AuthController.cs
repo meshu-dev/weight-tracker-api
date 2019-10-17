@@ -11,7 +11,7 @@ namespace WeightTracker.Api.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-        private Repository<UserModel> _userRepository;
+        private UserRepository _userRepository;
         private JwtHelper _jwtHelper;
 
         public AuthController(Repository<UserModel> userRepository, JwtHelper jwtHelper)
@@ -27,7 +27,7 @@ namespace WeightTracker.Api.Controllers
             string email = json["Email"].Value<string>();
             string password = json["Password"].Value<string>();
 
-            var existingUser = ((UserRepository) _userRepository).ReadByEmail(email);
+            var existingUser = _userRepository.ReadByEmail(email);
 
             if (existingUser != null)
             {

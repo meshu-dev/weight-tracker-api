@@ -6,18 +6,23 @@ using WeightTracker.Api.Repositories;
 
 namespace WeightTracker.Api.Controllers
 {
-    [Route("units")]
     [ApiController]
-    public class UnitsController : ApiController<UnitModel>
+    [Route("units")]
+    public class UnitsController : Controller
     {
-        public UnitsController(Repository<UnitModel> repository) : base(repository) { }
+        protected readonly UnitRepository unitRepository;
+
+        public UnitsController(Repository<UnitModel> unitRepository)
+        {
+            this.unitRepository = (UnitRepository) unitRepository;
+        }
 
         [HttpPost()]
         public IActionResult Post(UnitModel model)
         {
             try
             {
-                var unit = repository.Create(model);
+                var unit = unitRepository.Create(model);
                 if (unit == null) return BadRequest("Unit could not be created");
 
                 return Ok(unit);
@@ -34,7 +39,7 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var unit = repository.Read(id);
+                var unit = unitRepository.Read(id);
                 if (unit == null) return NotFound($"Unit does not exist with Id {id}");
 
                 return Ok(unit);
@@ -50,7 +55,7 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var units = repository.ReadAll();
+                var units = unitRepository.ReadAll();
                 if (units == null) return NotFound($"No units are available");
 
                 return Ok(units);
@@ -66,12 +71,12 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                var unit = repository.Read(id);
+                var unit = unitRepository.Read(id);
                 if (unit == null) return NotFound($"Unit doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                unit = repository.Update(model);
+                unit = unitRepository.Update(model);
                 if (unit == null) return BadRequest("Unit could not be updated");
 
                 return Ok(unit);
@@ -83,13 +88,18 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
+        private IActionResult StatusCode(int status500InternalServerError, Exception e)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
-            var unit = repository.Read(id);
+            var unit = unitRepository.Read(id);
             if (unit == null) return NotFound();
 
-            var isDeleted = repository.Delete(unit);
+            var isDeleted = unitRepository.Delete(unit);
             if (isDeleted == true) return NoContent();
 
             return NotFound("Couldn't delete Unit");

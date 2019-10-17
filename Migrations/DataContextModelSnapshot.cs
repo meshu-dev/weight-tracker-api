@@ -29,6 +29,9 @@ namespace WeightTracker.Api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Units");
@@ -37,17 +40,20 @@ namespace WeightTracker.Api.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Pounds"
+                            Name = "Kilograms",
+                            ShortName = "Kg"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Kilograms"
+                            Name = "Pounds",
+                            ShortName = "Lb"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Stones"
+                            Name = "Stones",
+                            ShortName = "St"
                         });
                 });
 
@@ -63,16 +69,23 @@ namespace WeightTracker.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Users");
                 });
@@ -99,6 +112,15 @@ namespace WeightTracker.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WeighIns");
+                });
+
+            modelBuilder.Entity("WeightTracker.Api.Entities.User", b =>
+                {
+                    b.HasOne("WeightTracker.Api.Entities.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WeightTracker.Api.Entities.WeighIn", b =>

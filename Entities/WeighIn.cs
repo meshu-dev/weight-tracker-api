@@ -10,6 +10,9 @@ namespace WeightTracker.Api.Entities
         public int Id { get; set; }
 
         [Required]
+        public int UserId { get; set; }
+
+        [Required]
         public string Value { get; set; }
 
         [Required]
@@ -17,7 +20,5 @@ namespace WeightTracker.Api.Entities
 
         [ForeignKey("UserId")]
         public User User { get; set; }
-
-        public int UserId { get; set; }
     }
 }

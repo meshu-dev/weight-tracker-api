@@ -46,9 +46,8 @@ namespace WeightTracker.Api.Helpers
             }
             catch (Exception e)
             {
-                throw e;
+                return false;
             }
-            return false;
         }
 
         private IEnumerable<Claim> CreateClaims(string name)
