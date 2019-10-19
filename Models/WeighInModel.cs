@@ -15,5 +15,7 @@ namespace WeightTracker.Api.Models
 
         [Required]
         public DateTime Date { get; set; }
+
+        public UserModel User { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,7 @@ namespace WeightTracker.Api.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public int UnitId { get; set; }
 
         [Required]
@@ -27,6 +29,6 @@ namespace WeightTracker.Api.Entities
         public string LastName { get; set; }
 
         [ForeignKey("UnitId")]
-        public Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; }
     }
 }

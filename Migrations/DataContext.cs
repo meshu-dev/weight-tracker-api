@@ -27,7 +27,7 @@ namespace WeightTracker.Api.Migrations
               .HasData(
                 new { Id = 1, Name = "Kilograms", ShortName = "Kg" },
                 new { Id = 2, Name = "Pounds", ShortName = "Lb" },
-                new { Id = 3, Name = "Stones", ShortName = "St" }
+                new { Id = 3, Name = "Stone", ShortName = "St" }
               );
         }
     }

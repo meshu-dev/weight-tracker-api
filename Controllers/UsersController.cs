@@ -57,6 +57,23 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
+        [HttpGet("{email}")]
+        [Route("email/{email}")]
+        public IActionResult GetByEmail(string email)
+        {
+            try
+            {
+                var user = userRepository.ReadByEmail(email);
+                if (user == null) return NotFound($"User does not exist with email {email}");
+
+                return Ok(user);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "There was an issue getting user");
+            }
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {

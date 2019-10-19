@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Helpers;
-using WeightTracker.Api.Helpers;
 
 namespace WeightTracker.Api.Models
 {
@@ -8,7 +7,12 @@ namespace WeightTracker.Api.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public int UnitId { get; set; }
+
+        public string UnitName { get; set; }
+
+        public string UnitShortName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -19,12 +23,8 @@ namespace WeightTracker.Api.Models
 
         public string Password
         {
-            get {
-                return _password;
-            }
-            set {
-                _password = Crypto.HashPassword(value);
-            }
+            get => _password;
+            set => _password = Crypto.HashPassword(value);
         }
 
         public string FirstName { get; set; }

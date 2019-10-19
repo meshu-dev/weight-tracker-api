@@ -25,32 +25,34 @@ namespace WeightTracker.Api.Repositories
 
         public override UserModel Read(int id)
         {
-            var entity = context.Users.Find(id);
+            var entity = context.Users
+                .Include(u => u.Unit)
+                .Where(u => u.Id == id)
+                .FirstOrDefault();
 
             if (entity == null) return null;
 
-            context.Entry(entity).State = EntityState.Detached;
             return mapper.Map<UserModel>(entity);
         }
 
         public UserModel ReadByEmail(string email)
         {
-            /*
             var entity = context.Users
-                                .Where(u => u.Email == email)
-                                .Select(u => u); */
-
-            var entity = context.Users.Find(1);
+                .Include(u => u.Unit)
+                .Where(u => u.Email == email)
+                .FirstOrDefault();
 
             if (entity == null) return null;
 
-            context.Entry(entity).State = EntityState.Detached;
             return mapper.Map<UserModel>(entity);
         }
 
         public override UserModel[] ReadAll()
         {
-            var entities = context.Users.AsNoTracking().ToArray();
+            var entities = context.Users
+                .AsNoTracking()
+                .Include(u => u.Unit)
+                .ToArray();
 
             if (entities == null) return null;
 

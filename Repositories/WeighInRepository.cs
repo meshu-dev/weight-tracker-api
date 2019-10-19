@@ -14,7 +14,6 @@ namespace WeightTracker.Api.Repositories
         public override WeighInModel Create(WeighInModel model)
         {
             var entity = mapper.Map<WeighIn>(model);
-
             context.Add(entity);
 
             if (Save() == true)
@@ -26,17 +25,24 @@ namespace WeightTracker.Api.Repositories
 
         public override WeighInModel Read(int id)
         {
-            var entity = context.WeighIns.Find(id);
+            var entity = context.WeighIns
+                .Include(w => w.User)
+                .ThenInclude(u => u.Unit)
+                .Where(w => w.Id == id)
+                .FirstOrDefault();
 
             if (entity == null) return null;
 
-            context.Entry(entity).State = EntityState.Detached;
             return mapper.Map<WeighInModel>(entity);
         }
 
         public override WeighInModel[] ReadAll()
         {
-            var entities = context.WeighIns.AsNoTracking().ToArray();
+            var entities = context.WeighIns
+                .AsNoTracking()
+                .Include(w => w.User)
+                .ThenInclude(u => u.Unit)
+                .ToArray();
 
             if (entities == null) return null;
 

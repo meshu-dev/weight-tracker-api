@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WeightTracker.Api.Helpers;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 
@@ -12,14 +13,16 @@ namespace WeightTracker.Api.Controllers
     {
         protected readonly WeighInRepository weighInRepository;
         protected readonly UserRepository userRepository;
+        protected readonly UserUnitConverter userUnitConverter;
 
         public WeighInsController(
             Repository<WeighInModel> weighInRepository,
-            Repository<UserModel> userRepository
-        )
-        {
+            Repository<UserModel> userRepository,
+            UserUnitConverter userUnitConverter
+        ) {
             this.weighInRepository = (WeighInRepository) weighInRepository;
-            this.userRepository = (UserRepository)userRepository;
+            this.userRepository = (UserRepository) userRepository;
+            this.userUnitConverter = userUnitConverter;
         }
 
         [HttpPost()]
@@ -27,9 +30,14 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
+                // Validation checks
                 var user = userRepository.Read(model.UserId);
                 if (user == null) return BadRequest("User does not exist with provided Id");
 
+                // Convert to base unit
+                model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitName, model.Value);
+
+                // Save
                 var weighIn = weighInRepository.Create(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be created");
 
