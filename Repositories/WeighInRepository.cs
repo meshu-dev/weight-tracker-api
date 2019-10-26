@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
 using WeightTracker.Api.Entities;
-using WeightTracker.Api.Helpers;
+using WeightTracker.Api.Helpers.ListParams;
 using WeightTracker.Api.Migrations;
 using WeightTracker.Api.Models;
 
@@ -53,9 +51,9 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UserWeighInModel[]>(entities);
         }
 
-        public WeighInModel[] ReadAll(ListParams listParams)
+        public WeighInModel[] ReadAll(WeighInListParams listParams)
         {
-            IQueryable<IEntity> queryable = context.WeighIns
+            IQueryable<WeighIn> queryable = context.WeighIns
                 .AsNoTracking()
                 .Include(w => w.User)
                 .ThenInclude(u => u.Unit)
@@ -89,6 +87,15 @@ namespace WeightTracker.Api.Repositories
 
             context.WeighIns.Remove(entity);
             return Save();
+        }
+
+        public IQueryable<WeighIn> ApplyListParams(IQueryable<WeighIn> queryable, WeighInListParams listParams)
+        {
+            if (listParams.UserId > 0)
+            {
+                queryable = queryable.Where(w => w.UserId == listParams.UserId);
+            }
+            return base.ApplyListParams<WeighIn>(queryable, listParams);
         }
     }
 }

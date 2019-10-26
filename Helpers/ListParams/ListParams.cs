@@ -1,4 +1,4 @@
-﻿namespace WeightTracker.Api.Helpers
+﻿namespace WeightTracker.Api.Helpers.ListParams
 {
     public class ListParams
     {
@@ -20,7 +20,7 @@
             }
         }
 
-        private string _sort = "id_asc";
+        private string _sort;
 
         public string Sort
         {

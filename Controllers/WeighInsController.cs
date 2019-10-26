@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeightTracker.Api.Helpers;
+using WeightTracker.Api.Helpers.ListParams;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 
@@ -67,7 +68,7 @@ namespace WeightTracker.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery] ListParams listParams)
+        public IActionResult GetAll([FromQuery] WeighInListParams listParams)
         {
             try
             {
