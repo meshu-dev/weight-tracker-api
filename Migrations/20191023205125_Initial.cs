@@ -13,8 +13,8 @@ namespace WeightTracker.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    ShortName = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 50, nullable: true),
+                    ShortName = table.Column<string>(maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,17 +68,13 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Units",
                 columns: new[] { "Id", "Name", "ShortName" },
-                values: new object[] { 1, "Kilograms", "Kg" });
-
-            migrationBuilder.InsertData(
-                table: "Units",
-                columns: new[] { "Id", "Name", "ShortName" },
-                values: new object[] { 2, "Pounds", "Lb" });
-
-            migrationBuilder.InsertData(
-                table: "Units",
-                columns: new[] { "Id", "Name", "ShortName" },
-                values: new object[] { 3, "Stones", "St" });
+                values: new object[,]
+                {
+                    { 1, "Kilograms", "Kg" },
+                    { 2, "Pounds", "Lbs" },
+                    { 3, "Stone", "St" },
+                    { 4, "Stone & Pounds", "St Lbs" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_UnitId",

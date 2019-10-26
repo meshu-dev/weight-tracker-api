@@ -24,10 +24,6 @@ namespace WeightTracker.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddDbContext<DataContext>();
-            //services.AddAutoMapper(typeof(Startup));
-
             // AutoMapper
             var mappingConfig = new MapperConfiguration(mappingConfig =>
             {
@@ -35,10 +31,21 @@ namespace WeightTracker.Api
             });
             services.AddSingleton(mappingConfig.CreateMapper());
 
+            // Dependencies
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddDbContext<DataContext>();
+            //services.AddAutoMapper(typeof(Startup));
+
             // JWT Helper
             var jwtHelper = new JwtHelper(new JwtSecurityTokenHandler(), Configuration);
             services.AddSingleton(jwtHelper);
 
+            // Converters
+            var unitConverter = new UnitConverter();
+            services.AddSingleton(unitConverter);
+            services.AddSingleton(new UserUnitConverter(unitConverter));
+
+            // Repositories
             services.AddScoped<Repository<UnitModel>, UnitRepository>();
             services.AddScoped<Repository<UserModel>, UserRepository>();
             services.AddScoped<Repository<WeighInModel>, WeighInRepository>();
@@ -52,7 +59,7 @@ namespace WeightTracker.Api
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();

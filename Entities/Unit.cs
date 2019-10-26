@@ -10,9 +10,7 @@ namespace WeightTracker.Api.Entities
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [MinLength(2)]
-        [MaxLength(2)]
-        //[StringLength(2, MinimumLength = 2)]
+        [StringLength(10, MinimumLength = 2)]
         public string ShortName { get; set; }
     }
 }

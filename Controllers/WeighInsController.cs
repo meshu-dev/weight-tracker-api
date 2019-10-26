@@ -35,7 +35,7 @@ namespace WeightTracker.Api.Controllers
                 if (user == null) return BadRequest("User does not exist with provided Id");
 
                 // Convert to base unit
-                model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitName, model.Value);
+                //model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitName, model.Value);
 
                 // Save
                 var weighIn = weighInRepository.Create(model);
@@ -67,17 +67,18 @@ namespace WeightTracker.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] ListParams listParams)
         {
             try
             {
-                var weighIns = weighInRepository.ReadAll();
+                var weighIns = weighInRepository.ReadAll(listParams);
                 if (weighIns == null) return NotFound($"No weigh ins are available");
 
                 return Ok(weighIns);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                throw e;
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "There was an issue getting weigh ins");
             }
         }

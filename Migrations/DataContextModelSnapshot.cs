@@ -27,10 +27,12 @@ namespace WeightTracker.Api.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("ShortName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.HasKey("Id");
 
@@ -47,13 +49,19 @@ namespace WeightTracker.Api.Migrations
                         {
                             Id = 2,
                             Name = "Pounds",
-                            ShortName = "Lb"
+                            ShortName = "Lbs"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Stones",
+                            Name = "Stone",
                             ShortName = "St"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Stone & Pounds",
+                            ShortName = "St Lbs"
                         });
                 });
 

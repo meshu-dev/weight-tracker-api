@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.ComponentModel;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using WeightTracker.Api.Entities;
+using WeightTracker.Api.Helpers;
 using WeightTracker.Api.Migrations;
 using WeightTracker.Api.Models;
 
@@ -46,7 +50,23 @@ namespace WeightTracker.Api.Repositories
 
             if (entities == null) return null;
 
-            return mapper.Map<WeighInModel[]>(entities);
+            return mapper.Map<UserWeighInModel[]>(entities);
+        }
+
+        public WeighInModel[] ReadAll(ListParams listParams)
+        {
+            IQueryable<IEntity> queryable = context.WeighIns
+                .AsNoTracking()
+                .Include(w => w.User)
+                .ThenInclude(u => u.Unit)
+                .AsQueryable();
+
+            queryable = this.ApplyListParams(queryable, listParams);
+            var entities = queryable.ToArray();
+
+            if (entities == null) return null;
+
+            return mapper.Map<UserWeighInModel[]>(entities);
         }
 
         public override WeighInModel Update(WeighInModel model)

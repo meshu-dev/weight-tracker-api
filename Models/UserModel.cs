@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Helpers;
+using WeightTracker.Api.Entities;
 
 namespace WeightTracker.Api.Models
 {

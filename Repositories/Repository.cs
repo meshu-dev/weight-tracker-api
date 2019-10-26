@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using System.Linq;
+using WeightTracker.Api.Helpers;
 using WeightTracker.Api.Migrations;
 using WeightTracker.Api.Models;
+using System.Linq.Dynamic.Core;
+using WeightTracker.Api.Entities;
 
 namespace WeightTracker.Api.Repositories
 {
@@ -24,6 +28,16 @@ namespace WeightTracker.Api.Repositories
         public abstract T Update(T model);
 
         public abstract bool Delete(T model);
+
+        public IQueryable<IEntity> ApplyListParams(IQueryable<IEntity> queryable, ListParams listParams)
+        {
+            queryable = queryable.OrderBy(listParams.Sort);
+
+            int offset = (listParams.Page - 1) * listParams.Count;
+            queryable = queryable.Skip(offset).Take(listParams.Count);
+
+            return queryable;
+        }
 
         public bool Save()
         {

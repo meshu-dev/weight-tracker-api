@@ -25,9 +25,10 @@ namespace WeightTracker.Api.Migrations
         {
             modelBuilder.Entity<Unit>()
               .HasData(
-                new { Id = 1, Name = "Kilograms", ShortName = "Kg" },
-                new { Id = 2, Name = "Pounds", ShortName = "Lb" },
-                new { Id = 3, Name = "Stone", ShortName = "St" }
+                new { Id = 1, Name = "Kilograms", ShortName = "kg" },
+                new { Id = 2, Name = "Pounds", ShortName = "lbs" },
+                new { Id = 3, Name = "Stone", ShortName = "st" },
+                new { Id = 4, Name = "Stone & Pounds", ShortName = "st lbs" }
               );
         }
     }

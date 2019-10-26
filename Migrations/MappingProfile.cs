@@ -16,6 +16,9 @@ namespace WeightTracker.Api.Migrations
 
             this.CreateMap<WeighIn, WeighInModel>()
                 .ReverseMap();
+
+            this.CreateMap<WeighIn, UserWeighInModel>()
+                .ReverseMap();
         }
     }
 }

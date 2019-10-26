@@ -11,11 +11,11 @@ namespace WeightTracker.Api.Models
         public int UserId { get; set; }
 
         [Required]
-        public string Value { get; set; }
+        public virtual string Value { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
 
-        public UserModel User { get; set; }
+        public UserModel User { protected get; set; }
     }
 }
