@@ -37,7 +37,7 @@ namespace WeightTracker.Api.Controllers
         {
             //var token = _jwtHelper.CreateToken("Joker2");
 
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiSm9rZXIyIiwiZXhwIjoxNTcwOTg2NjQzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYzOTM5LyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIn0.DYkwwLV0EfOIeu-_dgnTc_JtzuAtU2KkvZPGbSO_jnY";
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiSm9rZXIyIiwiZXhwIjoxNTcyMzEzMTY3LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYzOTM5LyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIn0._ioIrkwCK2pcd8YQ_UzPYLTlLsKSXHc2PwF5p3mbpC4";
             var isValid = _jwtHelper.VerifyToken(token);
 
             return Ok(new { Token = token, IsValid = isValid });

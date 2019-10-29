@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Web.Helpers;
 using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
 using WeightTracker.Api.Models;
@@ -13,6 +14,7 @@ namespace WeightTracker.Api.Repositories
 
         public override UserModel Create(UserModel model)
         {
+            model.Password = Crypto.HashPassword(model.Password);
             var entity = mapper.Map<User>(model);
 
             context.Add(entity);
@@ -65,6 +67,11 @@ namespace WeightTracker.Api.Repositories
             if (entity == null) return null;
 
             mapper.Map(model, entity);
+
+            if (model.Password != entity.Password)
+            {
+                model.Password = Crypto.HashPassword(model.Password);
+            }
 
             if (Save() == true)
             {

@@ -9,21 +9,84 @@ using WeightTracker.Api.Models;
 using WeightTracker.Api.Migrations;
 using System.IdentityModel.Tokens.Jwt;
 using WeightTracker.Api.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using WeightTracker.Api.Services;
 
 namespace WeightTracker.Api
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfiguration Config { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration Config)
         {
-            Configuration = configuration;
+            this.Config = Config;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // JWT Service
+            var jwtService = new JwtService(new JwtSecurityTokenHandler(), Config);
+            services.AddSingleton(jwtService);
+
+            // JWT Authentication
+            services.AddAuthentication(a =>
+            {
+                a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(j =>
+            {
+                j.RequireHttpsMetadata = false;
+                j.SaveToken = true;
+                j.TokenValidationParameters = jwtService.GetTokenValidationParameters();
+            });
+
+            /*
+            services.AddAuthentication(a =>
+            {
+                a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(j =>
+            {
+                j.RequireHttpsMetadata = false;
+                j.SaveToken = true;
+                /*
+                j.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(jwtKeyInBytes),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                }; */
+                /*
+                j.Audience = Config.GetValue<string>("Jwt:Issuer");
+                j.ClaimsIssuer = Config.GetValue<string>("Jwt:Issuer");
+                j.TokenValidationParameters = jwtHelper.GetTokenValidationParameters();
+
+                j.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["token"];
+                        /*
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/hubs/chat")))
+                        {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                        } */
+                        /*
+                        return Task.CompletedTask;
+                    }
+                }; 
+            });*/
+
             // AutoMapper
             var mappingConfig = new MapperConfiguration(mappingConfig =>
             {
@@ -32,13 +95,9 @@ namespace WeightTracker.Api
             services.AddSingleton(mappingConfig.CreateMapper());
 
             // Dependencies
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<IConfiguration>(Config);
             services.AddDbContext<DataContext>();
             //services.AddAutoMapper(typeof(Startup));
-
-            // JWT Helper
-            var jwtHelper = new JwtHelper(new JwtSecurityTokenHandler(), Configuration);
-            services.AddSingleton(jwtHelper);
 
             // Converters
             var unitConverter = new UnitConverter();
@@ -61,10 +120,12 @@ namespace WeightTracker.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

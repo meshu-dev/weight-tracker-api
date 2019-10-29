@@ -28,7 +28,7 @@ namespace WeightTracker.Api.Helpers
               _config.GetValue<string>("Jwt:Issuer"),
               _config.GetValue<string>("Jwt:Issuer"),
               claims: claims,
-              expires: DateTime.Now.AddMinutes(1),
+              expires: DateTime.Now.AddMinutes(100),
               signingCredentials: credetials
            );
 
@@ -76,7 +76,7 @@ namespace WeightTracker.Api.Helpers
             return credetials;
         }
 
-        private TokenValidationParameters GetTokenValidationParameters()
+        public TokenValidationParameters GetTokenValidationParameters()
         {
             /*
             TokenValidationParameters validationParameters = new TokenValidationParameters()

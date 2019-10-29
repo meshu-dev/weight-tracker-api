@@ -19,6 +19,7 @@ namespace WeightTracker.Api.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        /*
         [Required]
         private string _password;
 
@@ -26,7 +27,10 @@ namespace WeightTracker.Api.Models
         {
             get => _password;
             set => _password = Crypto.HashPassword(value);
-        }
+        } */
+
+        [Required]
+        public string Password { get; set; }
 
         public string FirstName { get; set; }
 
