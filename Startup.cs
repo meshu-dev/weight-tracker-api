@@ -1,16 +1,15 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AutoMapper;
+using System.IdentityModel.Tokens.Jwt;
 using WeightTracker.Api.Repositories;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Migrations;
-using System.IdentityModel.Tokens.Jwt;
 using WeightTracker.Api.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
 using WeightTracker.Api.Services;
 
 namespace WeightTracker.Api
@@ -43,49 +42,6 @@ namespace WeightTracker.Api
                 j.SaveToken = true;
                 j.TokenValidationParameters = jwtService.GetTokenValidationParameters();
             });
-
-            /*
-            services.AddAuthentication(a =>
-            {
-                a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(j =>
-            {
-                j.RequireHttpsMetadata = false;
-                j.SaveToken = true;
-                /*
-                j.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(jwtKeyInBytes),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                }; */
-                /*
-                j.Audience = Config.GetValue<string>("Jwt:Issuer");
-                j.ClaimsIssuer = Config.GetValue<string>("Jwt:Issuer");
-                j.TokenValidationParameters = jwtHelper.GetTokenValidationParameters();
-
-                j.Events = new JwtBearerEvents
-                {
-                    OnMessageReceived = context =>
-                    {
-                        var accessToken = context.Request.Query["token"];
-                        /*
-                        // If the request is for our hub...
-                        var path = context.HttpContext.Request.Path;
-                        if (!string.IsNullOrEmpty(accessToken) &&
-                            (path.StartsWithSegments("/hubs/chat")))
-                        {
-                            // Read the token out of the query string
-                            context.Token = accessToken;
-                        } */
-                        /*
-                        return Task.CompletedTask;
-                    }
-                }; 
-            });*/
 
             // AutoMapper
             var mappingConfig = new MapperConfiguration(mappingConfig =>

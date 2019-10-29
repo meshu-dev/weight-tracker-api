@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeightTracker.Api.Helpers;
@@ -10,6 +11,7 @@ namespace WeightTracker.Api.Controllers
 {
     [ApiController]
     [Route("weighins")]
+    [Authorize]
     public class WeighInsController : Controller
     {
         protected readonly WeighInRepository weighInRepository;

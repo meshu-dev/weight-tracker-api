@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeightTracker.Api.Models;
@@ -8,6 +9,7 @@ namespace WeightTracker.Api.Controllers
 {
     [ApiController]
     [Route("users")]
+    [Authorize]
     public class UsersController : Controller
     {
         protected readonly UserRepository userRepository;
