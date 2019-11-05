@@ -61,7 +61,7 @@ namespace WeightTracker.Api.Services
                 expires: DateTime.Now.AddMinutes(accessExpirationDouble),
                 signingCredentials: credentials
             );
-            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            return _tokenHandler.WriteToken(jwtToken);
         }
     }
 }
