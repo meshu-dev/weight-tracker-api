@@ -1,13 +1,15 @@
 ﻿using System.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 using WeightTracker.Api.Services;
 
 namespace WeightTracker.Api.Controllers
 {
+    /// <summary>
+    /// Used to login user accounts
+    /// </summary>
     [ApiController]
     [Route("auth")]
     [Consumes("application/json")]
@@ -17,6 +19,9 @@ namespace WeightTracker.Api.Controllers
         private readonly UserRepository _userRepository;
         private readonly JwtService _jwtService;
 
+        /// <summary>
+        /// Contructor used to create auth controller
+        /// </summary>
         public AuthController(
             Repository<UserModel> userRepository,
             JwtService jwtService

@@ -9,15 +9,32 @@ using WeightTracker.Api.Repositories;
 
 namespace WeightTracker.Api.Controllers
 {
+    /// <summary>
+    /// Used to retrieve, create and update weigh-in measurements
+    /// </summary>
     [ApiController]
     [Route("weighins")]
     [Authorize]
     public class WeighInsController : Controller
     {
+        /// <summary>
+        /// Manages weigh-ins in data store
+        /// </summary>
         protected readonly WeighInRepository weighInRepository;
+
+        /// <summary>
+        /// Manages users in data store
+        /// </summary>
         protected readonly UserRepository userRepository;
+
+        /// <summary>
+        /// Converts weight units
+        /// </summary>
         protected readonly UserUnitConverter userUnitConverter;
 
+        /// <summary>
+        /// Contructor used to create weigh-in controller
+        /// </summary>
         public WeighInsController(
             Repository<WeighInModel> weighInRepository,
             Repository<UserModel> userRepository,
@@ -28,6 +45,12 @@ namespace WeightTracker.Api.Controllers
             this.userUnitConverter = userUnitConverter;
         }
 
+        /// <summary>
+        /// Create a weigh-in
+        /// </summary>
+        /// <param name="model">The weigh-in to create</param>
+        /// <returns>An ActionResult of type WeighIn</returns>
+        /// <response code="422">Validation error</response>
         [HttpPost()]
         public IActionResult Post(WeighInModel model)
         {
@@ -53,6 +76,11 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get a weigh-in by id
+        /// </summary>
+        /// <param name="id">The id of the weigh-in</param>
+        /// <returns>The weigh-in matching the id</returns>
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
@@ -69,6 +97,10 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get a list of weigh-ins
+        /// </summary>
+        /// <returns>Multiple weigh-ins</returns>
         [HttpGet]
         public IActionResult GetAll([FromQuery] WeighInListParams listParams)
         {
@@ -81,11 +113,18 @@ namespace WeightTracker.Api.Controllers
             }
             catch (Exception e)
             {
-                throw e;
+                //throw e;
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "There was an issue getting weigh ins");
             }
         }
 
+        /// <summary>
+        /// Update a weigh-in by id
+        /// </summary>
+        /// <param name="id">The id of the weigh-in</param>
+        /// <param name="model">The weigh-in data to update</param>
+        /// <returns>An ActionResult of type WeighIn</returns>
+        /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, WeighInModel model)
         {
@@ -111,6 +150,10 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a weigh-in by id
+        /// </summary>
+        /// <param name="id">The id of the weigh-in</param>
         [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {

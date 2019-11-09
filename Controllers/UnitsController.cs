@@ -2,14 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
 
 namespace WeightTracker.Api.Controllers
 {
     /// <summary>
-    /// Used to manage weight units
+    /// Used to retrieve, create and update weight units
     /// </summary>
     [ApiController]
     [Route("units")]
@@ -19,16 +18,25 @@ namespace WeightTracker.Api.Controllers
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class UnitsController : Controller
     {
+        /// <summary>
+        /// Manages units in data store
+        /// </summary>
         protected readonly UnitRepository unitRepository;
 
         /// <summary>
-        /// Used to manage weight units
+        /// Contructor used to create units controller
         /// </summary>
         public UnitsController(Repository<UnitModel> unitRepository)
         {
             this.unitRepository = (UnitRepository) unitRepository;
         }
 
+        /// <summary>
+        /// Create a weight unit
+        /// </summary>
+        /// <param name="model">The unit to create</param>
+        /// <returns>An ActionResult of type Unit</returns>
+        /// <response code="422">Validation error</response>
         [HttpPost()]
         public IActionResult Post(UnitModel model)
         {
@@ -47,10 +55,10 @@ namespace WeightTracker.Api.Controllers
         }
 
         /// <summary>
-        /// Get a weight unit by Id
+        /// Get a weight unit by id
         /// </summary>
         /// <param name="id">The id of the weight unit</param>
-        /// <returns>The unit matching the Id</returns>
+        /// <returns>The unit matching the id</returns>
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -90,6 +98,13 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a weight unit by id
+        /// </summary>
+        /// <param name="id">The id of the unit</param>
+        /// <param name="model">The unit data to update</param>
+        /// <returns>An ActionResult of type Unit</returns>
+        /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
         public IActionResult Put(int id, UnitModel model)
         {
@@ -113,7 +128,7 @@ namespace WeightTracker.Api.Controllers
         }
 
         /// <summary>
-        /// Delete a weight unit by Id
+        /// Delete a weight unit by id
         /// </summary>
         /// <param name="id">The id of the weight unit</param>
         [HttpDelete("{id:int}")]
