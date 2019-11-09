@@ -15,6 +15,9 @@ namespace WeightTracker.Api.Controllers
     [ApiController]
     [Route("weighins")]
     [Authorize]
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public class WeighInsController : Controller
     {
         /// <summary>

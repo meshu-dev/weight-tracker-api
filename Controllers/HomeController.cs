@@ -6,6 +6,7 @@ namespace WeightTracker.Api.Controllers
     /// The main index controller for API
     /// </summary>
     [ApiController]
+    [Produces("application/json")]
     public class HomeController : Controller
     {
         /// <summary>

@@ -214,6 +214,111 @@
             </summary>
             <param name="id">The id of the weigh-in</param>
         </member>
+        <member name="T:WeightTracker.Api.Models.AuthModel">
+            <summary>
+            Model representing the login details for a user account
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.AuthModel.Email">
+            <summary>
+            The e-mail address of the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.AuthModel.Password">
+            <summary>
+            The password of the user
+            </summary>
+        </member>
+        <member name="T:WeightTracker.Api.Models.IModel">
+            <summary>
+            Interface for Models
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.IModel.Id">
+            <summary>
+            The id for the data
+            </summary>
+        </member>
+        <member name="T:WeightTracker.Api.Models.UnitModel">
+            <summary>
+            A weight unit
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UnitModel.Id">
+            <summary>
+            An id of the weight unit
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UnitModel.Name">
+            <summary>
+            The name of the weight unit
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UnitModel.ShortName">
+            <summary>
+            The short name of the weight unit
+            </summary>
+        </member>
+        <member name="T:WeightTracker.Api.Models.UserModel">
+            <summary>
+            A user account
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.Id">
+            <summary>
+            An id for the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.UnitId">
+            <summary>
+            An unit id for the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.UnitName">
+            <summary>
+            The name of the weight unit for the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.UnitShortName">
+            <summary>
+            The short name of the weight unit for the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.Email">
+            <summary>
+            The e-mail address of the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.Password">
+            <summary>
+            The password of the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.FirstName">
+            <summary>
+            The first name of the user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.LastName">
+            <summary>
+            The last name of the user
+            </summary>
+        </member>
+        <member name="T:WeightTracker.Api.Models.UserWeighInModel">
+            <summary>
+            A weigh-in for a specific user 
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Models.UserWeighInModel.#ctor">
+            <summary>
+            Contructor used to create user weigh-ins
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserWeighInModel.Value">
+            <summary>
+            The value of the weigh-in
+            </summary>
+        </member>
         <member name="T:WeightTracker.Api.Models.WeighInModel">
             <summary>
             A weigh-in measurement for a specific user
