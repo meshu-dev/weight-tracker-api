@@ -105,5 +105,5 @@ namespace WeightTracker.Api.Migrations
                 name: "Units");
         }
     }
-    
+    #pragma warning restore CS1591
 }

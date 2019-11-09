@@ -4,6 +4,16 @@
         <name>WeightTracker.Api</name>
     </assembly>
     <members>
+        <member name="T:WeightTracker.Api.Controllers.AuthController">
+            <summary>
+            Used to login user accounts
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.AuthController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Services.JwtService)">
+            <summary>
+            Contructor used to create auth controller
+            </summary>
+        </member>
         <member name="M:WeightTracker.Api.Controllers.AuthController.Login(WeightTracker.Api.Models.AuthModel)">
             <summary>
             Login as a user
@@ -31,20 +41,33 @@
         </member>
         <member name="T:WeightTracker.Api.Controllers.UnitsController">
             <summary>
-            Used to manage weight units
+            Used to retrieve, create and update weight units
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.UnitsController.unitRepository">
+            <summary>
+            Manages units in data store
             </summary>
         </member>
         <member name="M:WeightTracker.Api.Controllers.UnitsController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel})">
             <summary>
-            Used to manage weight units
+            Contructor used to create units controller
             </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UnitsController.Post(WeightTracker.Api.Models.UnitModel)">
+            <summary>
+            Create a weight unit
+            </summary>
+            <param name="model">The unit to create</param>
+            <returns>An ActionResult of type Unit</returns>
+            <response code="422">Validation error</response>
         </member>
         <member name="M:WeightTracker.Api.Controllers.UnitsController.Get(System.Int32)">
             <summary>
-            Get a weight unit by Id
+            Get a weight unit by id
             </summary>
             <param name="id">The id of the weight unit</param>
-            <returns>The unit matching the Id</returns>
+            <returns>The unit matching the id</returns>
         </member>
         <member name="M:WeightTracker.Api.Controllers.UnitsController.GetAll">
             <summary>
@@ -52,11 +75,144 @@
             </summary>
             <returns>All available units</returns>
         </member>
+        <member name="M:WeightTracker.Api.Controllers.UnitsController.Put(System.Int32,WeightTracker.Api.Models.UnitModel)">
+            <summary>
+            Update a weight unit by id
+            </summary>
+            <param name="id">The id of the unit</param>
+            <param name="model">The unit data to update</param>
+            <returns>An ActionResult of type Unit</returns>
+            <response code="422">Validation error</response>
+        </member>
         <member name="M:WeightTracker.Api.Controllers.UnitsController.Delete(System.Int32)">
             <summary>
-            Delete a weight unit by Id
+            Delete a weight unit by id
             </summary>
             <param name="id">The id of the weight unit</param>
+        </member>
+        <member name="T:WeightTracker.Api.Controllers.UsersController">
+            <summary>
+            Used to retrieve, create and update users
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.UsersController.userRepository">
+            <summary>
+            Manages users in data store
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.UsersController.unitRepository">
+            <summary>
+            Manages units in data store
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel})">
+            <summary>
+            Contructor used to create user controller
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.Post(WeightTracker.Api.Models.UserModel)">
+            <summary>
+            Create a user
+            </summary>
+            <param name="model">The user to create</param>
+            <returns>An ActionResult of type User</returns>
+            <response code="422">Validation error</response>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.Get(System.Int32)">
+            <summary>
+            Get a user by id
+            </summary>
+            <param name="id">The id of the user</param>
+            <returns>The user matching the Id</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.GetByEmail(System.String)">
+            <summary>
+            Get a user by their e-mail address
+            </summary>
+            <param name="email">The e-mail address of the user</param>
+            <returns>The user matching the e-mail address</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.GetAll">
+            <summary>
+            Get a list of users
+            </summary>
+            <returns>Multiple users</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.Put(System.Int32,WeightTracker.Api.Models.UserModel)">
+            <summary>
+            Create a user
+            </summary>
+            <param name="id">The id of the user</param>
+            <param name="model">The user data to update</param>
+            <returns>An ActionResult of type User</returns>
+            <response code="422">Validation error</response>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.Delete(System.Int32)">
+            <summary>
+            Delete a user by id
+            </summary>
+            <param name="id">The id of the user</param>
+        </member>
+        <member name="T:WeightTracker.Api.Controllers.WeighInsController">
+            <summary>
+            Used to retrieve, create and update weigh-in measurements
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.WeighInsController.weighInRepository">
+            <summary>
+            Manages weigh-ins in data store
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.WeighInsController.userRepository">
+            <summary>
+            Manages users in data store
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.WeighInsController.userUnitConverter">
+            <summary>
+            Converts weight units
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.WeighInModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Helpers.UserUnitConverter)">
+            <summary>
+            Contructor used to create weigh-in controller
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.Post(WeightTracker.Api.Models.WeighInModel)">
+            <summary>
+            Create a weigh-in
+            </summary>
+            <param name="model">The weigh-in to create</param>
+            <returns>An ActionResult of type WeighIn</returns>
+            <response code="422">Validation error</response>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.Get(System.Int32)">
+            <summary>
+            Get a weigh-in by id
+            </summary>
+            <param name="id">The id of the weigh-in</param>
+            <returns>The weigh-in matching the id</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.GetAll(WeightTracker.Api.Helpers.ListParams.WeighInListParams)">
+            <summary>
+            Get a list of weigh-ins
+            </summary>
+            <returns>Multiple weigh-ins</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.Put(System.Int32,WeightTracker.Api.Models.WeighInModel)">
+            <summary>
+            Update a weigh-in by id
+            </summary>
+            <param name="id">The id of the weigh-in</param>
+            <param name="model">The weigh-in data to update</param>
+            <returns>An ActionResult of type WeighIn</returns>
+            <response code="422">Validation error</response>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.Delete(System.Int32)">
+            <summary>
+            Delete a weigh-in by id
+            </summary>
+            <param name="id">The id of the weigh-in</param>
         </member>
         <member name="T:WeightTracker.Api.Models.WeighInModel">
             <summary>

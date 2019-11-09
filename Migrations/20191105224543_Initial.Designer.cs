@@ -9,6 +9,8 @@ using WeightTracker.Api.Migrations;
 
 namespace WeightTracker.Api.Migrations
 {
+    #pragma warning disable CS1591
+
     [DbContext(typeof(DataContext))]
     [Migration("20191105224543_Initial")]
     partial class Initial
@@ -155,4 +157,5 @@ namespace WeightTracker.Api.Migrations
 #pragma warning restore 612, 618
         }
     }
+    #pragma warning restore CS1591
 }
