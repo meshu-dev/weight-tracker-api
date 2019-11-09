@@ -1,5 +1,6 @@
 ﻿namespace WeightTracker.Api.Helpers.ListParams
 {
+    #pragma warning disable CS1591
     public class ListParams
     {
         private readonly int MaxCount = 20;
@@ -41,4 +42,5 @@
             }
         }
     }
+    #pragma warning restore CS1591
 }

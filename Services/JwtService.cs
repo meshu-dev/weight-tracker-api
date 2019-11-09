@@ -7,6 +7,7 @@ using System.Text;
 
 namespace WeightTracker.Api.Services
 {
+    #pragma warning disable CS1591
     public class JwtService
     {
         private readonly JwtSecurityTokenHandler _tokenHandler;
@@ -64,4 +65,5 @@ namespace WeightTracker.Api.Services
             return _tokenHandler.WriteToken(jwtToken);
         }
     }
+    #pragma warning restore CS1591
 }

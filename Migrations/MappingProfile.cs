@@ -4,6 +4,7 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Migrations
 {
+    #pragma warning disable CS1591
     public class MappingProfile : Profile
     {
         public MappingProfile()
@@ -21,4 +22,5 @@ namespace WeightTracker.Api.Migrations
                 .ReverseMap();
         }
     }
+    #pragma warning restore CS1591
 }

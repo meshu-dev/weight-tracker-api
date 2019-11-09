@@ -2,6 +2,7 @@
 
 namespace WeightTracker.Api.Repositories
 {
+    #pragma warning disable CS1591
     public interface IRepository<T> where T : IModel
     {
         public T Create(T model);
@@ -10,4 +11,5 @@ namespace WeightTracker.Api.Repositories
         public T Update(T model);
         public bool Delete(T model);
     }
+    #pragma warning restore CS1591
 }

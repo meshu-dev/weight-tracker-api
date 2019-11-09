@@ -1,5 +1,6 @@
 ﻿namespace WeightTracker.Api.Helpers
 {
+    #pragma warning disable CS1591
     public class UnitConverter
     {
         // https://www.rapidtables.com/convert/weight/pound-to-stone.html
@@ -40,4 +41,5 @@
             return kilograms / StoneToKilogramsValue;
         }
     }
+    #pragma warning restore CS1591
 }

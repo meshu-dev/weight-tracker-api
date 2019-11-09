@@ -5,6 +5,7 @@ using WeightTracker.Api.Entities;
 
 namespace WeightTracker.Api.Migrations
 {
+    #pragma warning disable CS1591
     public class DataContext : DbContext
     {
         private readonly IConfiguration _config;
@@ -45,4 +46,5 @@ namespace WeightTracker.Api.Migrations
               );
         }
     }
+    #pragma warning restore CS1591
 }

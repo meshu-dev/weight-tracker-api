@@ -5,6 +5,7 @@ using System.IO;
 
 namespace WeightTracker.Api.Migrations
 {
+    #pragma warning disable CS1591
     public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
     {
         public DataContext CreateDbContext(string[] args)
@@ -20,4 +21,5 @@ namespace WeightTracker.Api.Migrations
             );
         }
     }
+    #pragma warning restore CS1591
 }

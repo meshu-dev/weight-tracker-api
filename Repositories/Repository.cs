@@ -7,6 +7,7 @@ using WeightTracker.Api.Helpers.ListParams;
 
 namespace WeightTracker.Api.Repositories
 {
+    #pragma warning disable CS1591
     public abstract class Repository<T> : IRepository<T> where T : IModel
     {
         protected readonly DataContext context;
@@ -47,4 +48,5 @@ namespace WeightTracker.Api.Repositories
             return result > 0 ? true : false;
         }
     }
+    #pragma warning restore CS1591
 }

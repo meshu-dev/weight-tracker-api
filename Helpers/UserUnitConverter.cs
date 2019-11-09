@@ -2,6 +2,7 @@
 
 namespace WeightTracker.Api.Helpers
 {
+    #pragma warning disable CS1591
     public class UserUnitConverter
     {
         private readonly UnitConverter _unitConverter;
@@ -61,4 +62,5 @@ namespace WeightTracker.Api.Helpers
             return doubleValue.ToString() + " " + unitName;
         }
     }
+    #pragma warning restore CS1591
 }

@@ -7,6 +7,7 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
+    #pragma warning disable CS1591
     public class UnitRepository : Repository<UnitModel>
     {
         public UnitRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
@@ -65,4 +66,5 @@ namespace WeightTracker.Api.Repositories
             return Save();
         }
     }
+    #pragma warning restore CS1591
 }

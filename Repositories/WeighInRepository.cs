@@ -9,6 +9,7 @@ using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
+    #pragma warning disable CS1591
     public class WeighInRepository : Repository<WeighInModel>
     {
         public WeighInRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
@@ -98,4 +99,5 @@ namespace WeightTracker.Api.Repositories
             return base.ApplyListParams<WeighIn>(queryable, listParams);
         }
     }
+    #pragma warning restore CS1591
 }
