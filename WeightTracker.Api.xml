@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WeightTracker.Api</name>
+    </assembly>
+    <members>
+        <member name="M:WeightTracker.Api.Controllers.AuthController.Login(WeightTracker.Api.Models.AuthModel)">
+            <summary>
+            Login as a user
+            </summary>
+            <param name="authModel">A model representing the e-mail and password fields</param>
+            <returns>An ActionResult containing the authorised token</returns>
+            <response code="200">Returns the id of the created object</response>
+        </member>
+        <member name="T:WeightTracker.Api.Controllers.HomeController">
+            <summary>
+            The main index controller for API
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.HomeController.Index">
+            <summary>
+            Gets the current status of the API
+            </summary>
+            <returns>The status of the API</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.HomeController.Test">
+            <summary>
+            Used to test out functions of API
+            </summary>
+            <returns>Data related to the test function used</returns>
+        </member>
+        <member name="T:WeightTracker.Api.Controllers.UnitsController">
+            <summary>
+            Used to manage weight units
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UnitsController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel})">
+            <summary>
+            Used to manage weight units
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UnitsController.Get(System.Int32)">
+            <summary>
+            Get a weight unit by Id
+            </summary>
+            <param name="id">The id of the weight unit</param>
+            <returns>The unit matching the Id</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UnitsController.GetAll">
+            <summary>
+            Get a list of weight units
+            </summary>
+            <returns>All available units</returns>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UnitsController.Delete(System.Int32)">
+            <summary>
+            Delete a weight unit by Id
+            </summary>
+            <param name="id">The id of the weight unit</param>
+        </member>
+        <member name="T:WeightTracker.Api.Models.WeighInModel">
+            <summary>
+            A weigh-in measurement for a specific user
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.WeighInModel.Id">
+            <summary>
+            The first name of the author
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.WeighInModel.UserId">
+            <summary>
+            The Id for the user associated with the weigh-in
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.WeighInModel.Value">
+            <summary>
+            The value of the weigh-in
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.WeighInModel.Date">
+            <summary>
+            The date of the weigh-in
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.WeighInModel.User">
+            <summary>
+            The user associated with the weigh-in
+            </summary>
+        </member>
+    </members>
+</doc>

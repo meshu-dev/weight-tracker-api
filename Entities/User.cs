@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeightTracker.Api.Entities
 {
+    #pragma warning disable CS1591
     public class User : IEntity
     {
         [Key]
@@ -30,4 +29,5 @@ namespace WeightTracker.Api.Entities
         [ForeignKey("UnitId")]
         public virtual Unit Unit { get; set; }
     }
+    #pragma warning restore CS1591
 }

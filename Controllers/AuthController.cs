@@ -1,4 +1,5 @@
 ﻿using System.Web.Helpers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using WeightTracker.Api.Models;
@@ -7,8 +8,10 @@ using WeightTracker.Api.Services;
 
 namespace WeightTracker.Api.Controllers
 {
-    [Route("auth")]
     [ApiController]
+    [Route("auth")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class AuthController : Controller
     {
         private readonly UserRepository _userRepository;
@@ -22,20 +25,25 @@ namespace WeightTracker.Api.Controllers
             _jwtService = jwtService;
         }
 
+        /// <summary>
+        /// Login as a user
+        /// </summary>
+        /// <param name="authModel">A model representing the e-mail and password fields</param>
+        /// <returns>An ActionResult containing the authorised token</returns>
+        /// <response code="200">Returns the id of the created object</response>
         [HttpPost()]
         [Route("login")]
-        public IActionResult Login(JObject json)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult Login(AuthModel authModel)
         {
-            string email = json["email"].Value<string>();
-            string password = json["password"].Value<string>();
-
-            var existingUser = _userRepository.ReadByEmail(email);
+            var existingUser = _userRepository.ReadByEmail(authModel.Email);
 
             if (existingUser != null)
             {
-                if (Crypto.VerifyHashedPassword(existingUser.Password, password) == true)
+                if (Crypto.VerifyHashedPassword(existingUser.Password, authModel.Password) == true)
                 {
-                    var token = _jwtService.CreateToken(email);
+                    var token = _jwtService.CreateToken(authModel.Email);
                     return Ok(new { Token = token });
                 }
             }

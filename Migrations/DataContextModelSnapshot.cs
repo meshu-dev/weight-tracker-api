@@ -43,25 +43,25 @@ namespace WeightTracker.Api.Migrations
                         {
                             Id = 1,
                             Name = "Kilograms",
-                            ShortName = "Kg"
+                            ShortName = "kg"
                         },
                         new
                         {
                             Id = 2,
                             Name = "Pounds",
-                            ShortName = "Lbs"
+                            ShortName = "lbs"
                         },
                         new
                         {
                             Id = 3,
                             Name = "Stone",
-                            ShortName = "St"
+                            ShortName = "st"
                         },
                         new
                         {
                             Id = 4,
                             Name = "Stone & Pounds",
-                            ShortName = "St Lbs"
+                            ShortName = "st lbs"
                         });
                 });
 
@@ -96,6 +96,17 @@ namespace WeightTracker.Api.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "harmeshuppal@gmail.com",
+                            FirstName = "Mesh",
+                            LastName = "Uppal",
+                            Password = "AEbrvNH2AOdBPX8vMFVHQfKrYS73qfD/8DSSmirr7KaTTsvRXWpMoaGpYPsFrhI/LQ==",
+                            UnitId = 1
+                        });
                 });
 
             modelBuilder.Entity("WeightTracker.Api.Entities.WeighIn", b =>

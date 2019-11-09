@@ -2,6 +2,7 @@
 
 namespace WeightTracker.Api.Entities
 {
+    #pragma warning disable CS1591
     public class Unit : IEntity
     {
         [Key]
@@ -13,4 +14,5 @@ namespace WeightTracker.Api.Entities
         [StringLength(10, MinimumLength = 2)]
         public string ShortName { get; set; }
     }
+    #pragma warning restore CS1591
 }

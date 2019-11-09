@@ -59,8 +59,7 @@ namespace WeightTracker.Api.Controllers
             }
         }
 
-        [HttpGet("{email}")]
-        [Route("email/{email}")]
+        [HttpGet("email/{email}")]
         public IActionResult GetByEmail(string email)
         {
             try

@@ -70,11 +70,16 @@ namespace WeightTracker.Api.Migrations
                 columns: new[] { "Id", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { 1, "Kilograms", "Kg" },
-                    { 2, "Pounds", "Lbs" },
-                    { 3, "Stone", "St" },
-                    { 4, "Stone & Pounds", "St Lbs" }
+                    { 1, "Kilograms", "kg" },
+                    { 2, "Pounds", "lbs" },
+                    { 3, "Stone", "st" },
+                    { 4, "Stone & Pounds", "st lbs" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "UnitId" },
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AEbrvNH2AOdBPX8vMFVHQfKrYS73qfD/8DSSmirr7KaTTsvRXWpMoaGpYPsFrhI/LQ==", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_UnitId",

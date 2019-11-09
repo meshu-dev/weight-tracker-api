@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeightTracker.Api.Entities
 {
+    #pragma warning disable CS1591
     public class WeighIn : IEntity
     {
         [Key]
@@ -21,4 +22,5 @@ namespace WeightTracker.Api.Entities
         [ForeignKey("UserId")]
         public User User { get; set; }
     }
+    #pragma warning restore CS1591
 }

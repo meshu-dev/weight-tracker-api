@@ -10,7 +10,7 @@ using WeightTracker.Api.Migrations;
 namespace WeightTracker.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191023205125_Initial")]
+    [Migration("20191105224543_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,25 +45,25 @@ namespace WeightTracker.Api.Migrations
                         {
                             Id = 1,
                             Name = "Kilograms",
-                            ShortName = "Kg"
+                            ShortName = "kg"
                         },
                         new
                         {
                             Id = 2,
                             Name = "Pounds",
-                            ShortName = "Lbs"
+                            ShortName = "lbs"
                         },
                         new
                         {
                             Id = 3,
                             Name = "Stone",
-                            ShortName = "St"
+                            ShortName = "st"
                         },
                         new
                         {
                             Id = 4,
                             Name = "Stone & Pounds",
-                            ShortName = "St Lbs"
+                            ShortName = "st lbs"
                         });
                 });
 
@@ -98,6 +98,17 @@ namespace WeightTracker.Api.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "harmeshuppal@gmail.com",
+                            FirstName = "Mesh",
+                            LastName = "Uppal",
+                            Password = "AEbrvNH2AOdBPX8vMFVHQfKrYS73qfD/8DSSmirr7KaTTsvRXWpMoaGpYPsFrhI/LQ==",
+                            UnitId = 1
+                        });
                 });
 
             modelBuilder.Entity("WeightTracker.Api.Entities.WeighIn", b =>

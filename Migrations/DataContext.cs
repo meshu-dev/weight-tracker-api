@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Web.Helpers;
 using WeightTracker.Api.Entities;
 
 namespace WeightTracker.Api.Migrations
@@ -29,6 +30,18 @@ namespace WeightTracker.Api.Migrations
                 new { Id = 2, Name = "Pounds", ShortName = "lbs" },
                 new { Id = 3, Name = "Stone", ShortName = "st" },
                 new { Id = 4, Name = "Stone & Pounds", ShortName = "st lbs" }
+              );
+
+            modelBuilder.Entity<User>()
+              .HasData(
+                new {
+                    Id = 1,
+                    UnitId = 1,
+                    Email = "harmeshuppal@gmail.com",
+                    Password = Crypto.HashPassword("12345"),
+                    FirstName = "Mesh",
+                    LastName = "Uppal"
+                }
               );
         }
     }
