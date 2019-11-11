@@ -6,6 +6,7 @@ using WeightTracker.Api.Entities;
 using WeightTracker.Api.Helpers.ListParams;
 using WeightTracker.Api.Migrations;
 using WeightTracker.Api.Models;
+using System.Threading.Tasks;
 
 namespace WeightTracker.Api.Repositories
 {
@@ -26,26 +27,49 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
+        public async Task<WeighInModel> CreateAsync(WeighInModel model)
+        {
+            var entity = mapper.Map<WeighIn>(model);
+            context.Add(entity);
+
+            if (await SaveAsync() == true)
+            {
+                return mapper.Map<WeighInModel>(entity);
+            }
+            return null;
+        }
+
         public override WeighInModel Read(int id)
         {
-            var entity = context.WeighIns
-                .Include(w => w.User)
-                .ThenInclude(u => u.Unit)
-                .Where(w => w.Id == id)
-                .FirstOrDefault();
+            var entity = ReadQueryable(id).FirstOrDefault();
 
             if (entity == null) return null;
 
             return mapper.Map<WeighInModel>(entity);
         }
 
-        public override WeighInModel[] ReadAll()
+        public async Task<WeighInModel> ReadAsync(int id)
         {
-            var entities = context.WeighIns
-                .AsNoTracking()
+            IQueryable<WeighIn> queryable = ReadQueryable(id);
+            var entity = await queryable.FirstOrDefaultAsync();
+
+            if (entity == null) return null;
+
+            return mapper.Map<WeighInModel>(entity);
+        }
+
+        private IQueryable<WeighIn> ReadQueryable(int id)
+        {
+            return context.WeighIns
                 .Include(w => w.User)
                 .ThenInclude(u => u.Unit)
-                .ToArray();
+                .Where(w => w.Id == id)
+                .AsQueryable();
+        }
+
+        public override WeighInModel[] ReadAll()
+        {
+            var entities = ReadAllQueryable().ToArray();
 
             if (entities == null) return null;
 
@@ -54,18 +78,49 @@ namespace WeightTracker.Api.Repositories
 
         public WeighInModel[] ReadAll(WeighInListParams listParams)
         {
-            IQueryable<WeighIn> queryable = context.WeighIns
-                .AsNoTracking()
-                .Include(w => w.User)
-                .ThenInclude(u => u.Unit)
-                .AsQueryable();
+            IQueryable<WeighIn> queryable = ReadAllQueryable(listParams);
 
-            queryable = this.ApplyListParams(queryable, listParams);
             var entities = queryable.ToArray();
+            if (entities == null) return null;
+
+            return mapper.Map<UserWeighInModel[]>(entities);
+        }
+
+        public async Task<WeighInModel[]> ReadAllAsync()
+        {
+            IQueryable<WeighIn> weighInQueryable = ReadAllQueryable();
+            var entities = await weighInQueryable.ToArrayAsync();
 
             if (entities == null) return null;
 
             return mapper.Map<UserWeighInModel[]>(entities);
+        }
+
+        public async Task<WeighInModel[]> ReadAllAsync(WeighInListParams listParams)
+        {
+            IQueryable<WeighIn> queryable = ReadAllQueryable(listParams);
+
+            var entities = await queryable.ToArrayAsync();
+            if (entities == null) return null;
+
+            return mapper.Map<UserWeighInModel[]>(entities);
+        }
+
+        private IQueryable<WeighIn> ReadAllQueryable()
+        {
+            return context.WeighIns
+                .AsNoTracking()
+                .Include(w => w.User)
+                .ThenInclude(u => u.Unit)
+                .AsQueryable();
+        }
+
+        private IQueryable<WeighIn> ReadAllQueryable(WeighInListParams listParams)
+        {
+            IQueryable<WeighIn> queryable = ReadAllQueryable();
+            queryable = this.ApplyListParams(queryable, listParams);
+
+            return queryable;
         }
 
         public override WeighInModel Update(WeighInModel model)
@@ -82,12 +137,36 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
+        public async Task<WeighInModel> UpdateAsync(WeighInModel model)
+        {
+            var entity = await context.WeighIns.FindAsync(model.Id);
+            if (entity == null) return null;
+
+            mapper.Map(model, entity);
+
+            if (await SaveAsync() == true)
+            {
+                return mapper.Map<WeighInModel>(entity);
+            }
+            return null;
+        }
+
         public override bool Delete(WeighInModel model)
         {
-            var entity = mapper.Map<WeighIn>(model);
-
-            context.WeighIns.Remove(entity);
+            DeleteModel(model);
             return Save();
+        }
+
+        public async Task<bool> DeleteAsync(WeighInModel model)
+        {
+            DeleteModel(model);
+            return await SaveAsync();
+        }
+
+        private void DeleteModel(WeighInModel model)
+        {
+            var entity = mapper.Map<WeighIn>(model);
+            context.WeighIns.Remove(entity);
         }
 
         public IQueryable<WeighIn> ApplyListParams(IQueryable<WeighIn> queryable, WeighInListParams listParams)

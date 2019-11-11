@@ -1,4 +1,5 @@
-﻿using WeightTracker.Api.Models;
+﻿using System.Threading.Tasks;
+using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Repositories
 {
@@ -7,7 +8,9 @@ namespace WeightTracker.Api.Repositories
     {
         public T Create(T model);
         public T Read(int id);
+        //public Task<T> ReadAsync(int id);
         public T[] ReadAll();
+        //public Task<T> ReadAllAsync();
         public T Update(T model);
         public bool Delete(T model);
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -105,11 +106,11 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>Multiple weigh-ins</returns>
         [HttpGet]
-        public IActionResult GetAll([FromQuery] WeighInListParams listParams)
+        public async Task<IActionResult> GetAll([FromQuery] WeighInListParams listParams)
         {
             try
             {
-                var weighIns = weighInRepository.ReadAll(listParams);
+                var weighIns = await weighInRepository.ReadAllAsync(listParams);
                 if (weighIns == null) return NotFound($"No weigh ins are available");
 
                 return Ok(weighIns);
