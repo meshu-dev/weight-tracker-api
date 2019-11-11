@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,14 +47,14 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type User</returns>
         /// <response code="422">Validation error</response>
         [HttpPost()]
-        public IActionResult Post(UserModel model)
+        public async Task<IActionResult> Post(UserModel model)
         {
             try
             {
-                var unit = unitRepository.Read(model.UnitId);
+                var unit = await unitRepository.ReadAsync(model.UnitId);
                 if (unit == null) return BadRequest("Unit does not exist with provided Id");
 
-                var user = userRepository.Create(model);
+                var user = await userRepository.CreateAsync(model);
                 if (user == null) return BadRequest("User could not be created");
 
                 return Ok(user);
@@ -71,11 +72,11 @@ namespace WeightTracker.Api.Controllers
         /// <param name="id">The id of the user</param>
         /// <returns>The user matching the Id</returns>
         [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var user = userRepository.Read(id);
+                var user = await userRepository.ReadAsync(id);
                 if (user == null) return NotFound($"User does not exist with Id {id}");
 
                 return Ok(user);
@@ -92,11 +93,11 @@ namespace WeightTracker.Api.Controllers
         /// <param name="email">The e-mail address of the user</param>
         /// <returns>The user matching the e-mail address</returns>
         [HttpGet("email/{email}")]
-        public IActionResult GetByEmail(string email)
+        public async Task<IActionResult> GetByEmail(string email)
         {
             try
             {
-                var user = userRepository.ReadByEmail(email);
+                var user = await userRepository.ReadByEmailAsync(email);
                 if (user == null) return NotFound($"User does not exist with email {email}");
 
                 return Ok(user);
@@ -112,11 +113,11 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>Multiple users</returns>
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var users = userRepository.ReadAll();
+                var users = await userRepository.ReadAllAsync();
                 if (users == null) return NotFound($"No users are available");
 
                 return Ok(users);
@@ -135,19 +136,19 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type User</returns>
         /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
-        public IActionResult Put(int id, UserModel model)
+        public async Task<IActionResult> Put(int id, UserModel model)
         {
             try
             {
-                var unit = unitRepository.Read(model.UnitId);
+                var unit = await unitRepository.ReadAsync(model.UnitId);
                 if (unit == null) return BadRequest("Unit does not exist with provided Id");
 
-                var user = userRepository.Read(id);
+                var user = await userRepository.ReadAsync(id);
                 if (user == null) return NotFound($"User doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                user = userRepository.Update(model);
+                user = await userRepository.UpdateAsync(model);
                 if (user == null) return BadRequest("User could not be updated");
 
                 return Ok(user);
@@ -164,12 +165,12 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <param name="id">The id of the user</param>
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var user = userRepository.Read(id);
+            var user = await userRepository.ReadAsync(id);
             if (user == null) return NotFound();
 
-            var isDeleted = userRepository.Delete(user);
+            var isDeleted = await userRepository.DeleteAsync(user);
             if (isDeleted == true) return NoContent();
 
             return NotFound("Couldn't delete User");

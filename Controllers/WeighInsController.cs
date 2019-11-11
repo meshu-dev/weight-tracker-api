@@ -56,19 +56,19 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type WeighIn</returns>
         /// <response code="422">Validation error</response>
         [HttpPost()]
-        public IActionResult Post(WeighInModel model)
+        public async Task<IActionResult> Post(WeighInModel model)
         {
             try
             {
                 // Validation checks
-                var user = userRepository.Read(model.UserId);
+                var user = await userRepository.ReadAsync(model.UserId);
                 if (user == null) return BadRequest("User does not exist with provided Id");
 
                 // Convert to base unit
                 //model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitName, model.Value);
 
                 // Save
-                var weighIn = weighInRepository.Create(model);
+                var weighIn = await weighInRepository.CreateAsync(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be created");
 
                 return Ok(weighIn);
@@ -130,19 +130,19 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type WeighIn</returns>
         /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
-        public IActionResult Put(int id, WeighInModel model)
+        public async Task<IActionResult> Put(int id, WeighInModel model)
         {
             try
             {
-                var user = userRepository.Read(model.UserId);
+                var user = await userRepository.ReadAsync(model.UserId);
                 if (user == null) return BadRequest("User does not exist with provided Id");
 
-                var weighIn = weighInRepository.Read(id);
+                var weighIn = await weighInRepository.ReadAsync(id);
                 if (weighIn == null) return NotFound($"Weigh in doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                weighIn = weighInRepository.Update(model);
+                weighIn = await weighInRepository.UpdateAsync(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be updated");
 
                 return Ok(weighIn);
@@ -159,12 +159,12 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <param name="id">The id of the weigh-in</param>
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var weighIn = weighInRepository.Read(id);
+            var weighIn = await weighInRepository.ReadAsync(id);
             if (weighIn == null) return NotFound();
 
-            var isDeleted = weighInRepository.Delete(weighIn);
+            var isDeleted = await weighInRepository.DeleteAsync(weighIn);
             if (isDeleted == true) return NoContent();
 
             return NotFound("Couldn't delete Weigh in");
