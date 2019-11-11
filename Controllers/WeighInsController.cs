@@ -86,11 +86,11 @@ namespace WeightTracker.Api.Controllers
         /// <param name="id">The id of the weigh-in</param>
         /// <returns>The weigh-in matching the id</returns>
         [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var weighIn = weighInRepository.Read(id);
+                var weighIn = await weighInRepository.ReadAsync(id);
                 if (weighIn == null) return NotFound($"Weigh in does not exist with Id {id}");
 
                 return Ok(weighIn);

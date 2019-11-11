@@ -26,15 +26,15 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
-        public async Task<UserModel> CreateAsync(UnitModel model)
+        public async Task<UnitModel> CreateAsync(UnitModel model)
         {
-            var entity = mapper.Map<User>(model);
+            var entity = mapper.Map<Unit>(model);
 
             context.Add(entity);
 
             if (await SaveAsync() == true)
             {
-                return mapper.Map<UserModel>(entity);
+                return mapper.Map<UnitModel>(entity);
             }
             return null;
         }
