@@ -51,6 +51,12 @@ namespace WeightTracker.Api.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Users_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Users_Unit_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Unit",
@@ -102,7 +108,17 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "ABPQOYAS/bxyXDNtTwCiJ1FUVc7fx7CulQu6ie0ZodbX+HzMVkOHG/zrz/MGb+N0+Q==", 1, 1 });
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "ADWsOARZipMiuPnN9cxWyNUs0moJso6zjgXU1CAtbXf+cT4ILQ1GyKlUn54DNpsoYw==", 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
+                values: new object[] { 2, "test@gmail.com", "Test", "Man", "ANwikBx3wx0Fahx+AsH2DlJf/0CSA01GPP6cYtp0KgAQqhn3HBroL3m4MTHDUahnqg==", 2, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_UnitId",
@@ -118,13 +134,13 @@ namespace WeightTracker.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Role");
-
-            migrationBuilder.DropTable(
                 name: "WeighIns");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "Unit");

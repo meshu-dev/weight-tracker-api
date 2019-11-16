@@ -49,7 +49,7 @@ namespace WeightTracker.Api.Controllers
             {
                 if (Crypto.VerifyHashedPassword(existingUser.Password, authModel.Password) == true)
                 {
-                    var token = _jwtService.CreateToken(authModel.Email);
+                    var token = _jwtService.CreateToken(existingUser);
                     return Ok(new { Token = token });
                 }
             }

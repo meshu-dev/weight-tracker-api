@@ -66,6 +66,7 @@ namespace WeightTracker.Api.Repositories
         private IQueryable<User> ReadQueryable(int id)
         {
             return context.Users
+                .Include(r => r.Role)
                 .Include(u => u.Unit)
                 .Where(u => u.Id == id)
                 .AsQueryable();
@@ -93,6 +94,7 @@ namespace WeightTracker.Api.Repositories
         private IQueryable<User> ReadByEmailQueryable(string email)
         {
             return context.Users
+                .Include(r => r.Role)
                 .Include(u => u.Unit)
                 .Where(u => u.Email == email)
                 .AsQueryable();
@@ -122,6 +124,7 @@ namespace WeightTracker.Api.Repositories
         {
             return context.Users
                 .AsNoTracking()
+                .Include(r => r.Role)
                 .Include(u => u.Unit)
                 .AsQueryable();
         }

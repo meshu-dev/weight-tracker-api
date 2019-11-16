@@ -10,7 +10,7 @@ using WeightTracker.Api.Migrations;
 namespace WeightTracker.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191116161539_Initial")]
+    [Migration("20191116164234_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,6 +126,8 @@ namespace WeightTracker.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("UnitId");
 
                     b.ToTable("Users");
@@ -137,8 +139,18 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "ABPQOYAS/bxyXDNtTwCiJ1FUVc7fx7CulQu6ie0ZodbX+HzMVkOHG/zrz/MGb+N0+Q==",
+                            Password = "ADWsOARZipMiuPnN9cxWyNUs0moJso6zjgXU1CAtbXf+cT4ILQ1GyKlUn54DNpsoYw==",
                             RoleId = 1,
+                            UnitId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "test@gmail.com",
+                            FirstName = "Test",
+                            LastName = "Man",
+                            Password = "ANwikBx3wx0Fahx+AsH2DlJf/0CSA01GPP6cYtp0KgAQqhn3HBroL3m4MTHDUahnqg==",
+                            RoleId = 2,
                             UnitId = 1
                         });
                 });
@@ -169,6 +181,12 @@ namespace WeightTracker.Api.Migrations
 
             modelBuilder.Entity("WeightTracker.Api.Entities.User", b =>
                 {
+                    b.HasOne("WeightTracker.Api.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WeightTracker.Api.Entities.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId")

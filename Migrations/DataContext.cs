@@ -50,6 +50,16 @@ namespace WeightTracker.Api.Migrations
                     Password = Crypto.HashPassword("12345"),
                     FirstName = "Mesh",
                     LastName = "Uppal"
+                },
+                new
+                {
+                    Id = 2,
+                    RoleId = 2,
+                    UnitId = 1,
+                    Email = "test@gmail.com",
+                    Password = Crypto.HashPassword("abcde"),
+                    FirstName = "Test",
+                    LastName = "Man"
                 }
               );
         }

@@ -54,6 +54,8 @@ namespace WeightTracker.Api.Models
         [Required]
         public int RoleId { get; set; }
 
+        public string RoleName { get; set; }
+
         /// <summary>
         /// A role type for the user
         /// </summary>
@@ -88,6 +90,14 @@ namespace WeightTracker.Api.Models
         /// </summary>
         [Required]
         public string Password { get; set; }
+
+        public string Fullname
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
 
         /// <summary>
         /// The first name of the user

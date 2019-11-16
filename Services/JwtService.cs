@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Services
 {
@@ -71,6 +72,7 @@ namespace WeightTracker.Api.Services
             return _tokenHandler.WriteToken(jwtToken);
         } */
 
+            /*
         public string CreateToken(string name)
         {
             var claim = new[]
@@ -79,6 +81,17 @@ namespace WeightTracker.Api.Services
                 new Claim(ClaimTypes.Role, "Admin"),
                 new Claim(ClaimTypes.Role, "Admin2"),
                 new Claim(ClaimTypes.Role, "SuperUser")
+            };
+            return CreateToken(claim);
+        } */
+
+        public string CreateToken(UserModel user)
+        {
+            var claim = new[]
+            {
+                new Claim(ClaimTypes.Name, user.Fullname),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.RoleName)
             };
             return CreateToken(claim);
         }

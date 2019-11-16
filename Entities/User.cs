@@ -29,6 +29,9 @@ namespace WeightTracker.Api.Entities
         [MaxLength(50)]
         public string LastName { get; set; }
 
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }
+
         [ForeignKey("UnitId")]
         public virtual Unit Unit { get; set; }
     }
