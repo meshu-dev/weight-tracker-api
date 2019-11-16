@@ -12,15 +12,15 @@ namespace WeightTracker.Api.Migrations
             this.CreateMap<Unit, UnitModel>()
                 .ReverseMap();
 
-            /*
             this.CreateMap<User, UserModel>()
-                .ReverseMap(); */
+                .ReverseMap();
 
+            /*
             this.CreateMap<User, UserModel>()
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => (Role) src.RoleId));
 
             this.CreateMap<UserModel, User>()
-                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => (int) src.Role));
+                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => (int) src.Role)); */
 
             this.CreateMap<WeighIn, WeighInModel>()
                 .ReverseMap();

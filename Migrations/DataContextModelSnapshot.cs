@@ -19,6 +19,34 @@ namespace WeightTracker.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WeightTracker.Api.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Standard"
+                        });
+                });
+
             modelBuilder.Entity("WeightTracker.Api.Entities.Unit", b =>
                 {
                     b.Property<int>("Id")
@@ -36,7 +64,7 @@ namespace WeightTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units");
+                    b.ToTable("Unit");
 
                     b.HasData(
                         new
@@ -107,7 +135,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AOwplOLVq8UMJp/m+Xii9OSkYScMDXOeeh2LcjIS51xLnbJSyc2KJtzB5o+uSflT5Q==",
+                            Password = "ABPQOYAS/bxyXDNtTwCiJ1FUVc7fx7CulQu6ie0ZodbX+HzMVkOHG/zrz/MGb+N0+Q==",
                             RoleId = 1,
                             UnitId = 1
                         });

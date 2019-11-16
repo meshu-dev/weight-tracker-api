@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Helpers;
 using WeightTracker.Api.Entities;
 
@@ -36,7 +38,21 @@ namespace WeightTracker.Api.Models
 
         //public int RoleId { get; set; }
 
-        public Role Role { get; set; }
+        /*
+    public string Role
+    {
+        get
+        {
+            return Enum.GetName(typeof(Role), Role);
+        }
+        set
+        {
+            Role = value;
+        }
+    } */
+
+        [Required]
+        public int RoleId { get; set; }
 
         /// <summary>
         /// A role type for the user
@@ -84,9 +100,10 @@ namespace WeightTracker.Api.Models
         public string LastName { get; set; }
     }
 
+    /*
     public enum Role
     {
         Admin = 1,
         Standard = 2
-    }
+    } */
 }

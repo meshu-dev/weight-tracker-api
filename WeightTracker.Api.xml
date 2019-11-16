@@ -239,6 +239,21 @@
             The id for the data
             </summary>
         </member>
+        <member name="T:WeightTracker.Api.Models.RoleModel">
+            <summary>
+            A user role
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.RoleModel.Id">
+            <summary>
+            An id of the user role
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.RoleModel.Name">
+            <summary>
+            The name of the user role
+            </summary>
+        </member>
         <member name="T:WeightTracker.Api.Models.UnitModel">
             <summary>
             A weight unit

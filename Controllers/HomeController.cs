@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Controllers
 {
@@ -29,7 +31,10 @@ namespace WeightTracker.Api.Controllers
         [Route("test")]
         public IActionResult Test()
         {
-            return Ok(new { Status = "Test Ok" });
+            //var a = Enum.GetNames(typeof(Role));
+            //var a = Enum.GetName(typeof(Role), 1);
+
+            return Ok(new { Status = "AAA" });
         }
 
         [Authorize(Roles = "Admin")]

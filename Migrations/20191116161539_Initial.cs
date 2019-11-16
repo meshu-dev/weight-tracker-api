@@ -8,7 +8,20 @@ namespace WeightTracker.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Units",
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Unit",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -18,7 +31,7 @@ namespace WeightTracker.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Units", x => x.Id);
+                    table.PrimaryKey("PK_Unit", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,9 +51,9 @@ namespace WeightTracker.Api.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Units_UnitId",
+                        name: "FK_Users_Unit_UnitId",
                         column: x => x.UnitId,
-                        principalTable: "Units",
+                        principalTable: "Unit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -67,7 +80,16 @@ namespace WeightTracker.Api.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Units",
+                table: "Role",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Standard" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Unit",
                 columns: new[] { "Id", "Name", "ShortName" },
                 values: new object[,]
                 {
@@ -80,7 +102,7 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AOwplOLVq8UMJp/m+Xii9OSkYScMDXOeeh2LcjIS51xLnbJSyc2KJtzB5o+uSflT5Q==", 1, 1 });
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "ABPQOYAS/bxyXDNtTwCiJ1FUVc7fx7CulQu6ie0ZodbX+HzMVkOHG/zrz/MGb+N0+Q==", 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_UnitId",
@@ -96,13 +118,16 @@ namespace WeightTracker.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Role");
+
+            migrationBuilder.DropTable(
                 name: "WeighIns");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Units");
+                name: "Unit");
         }
     }
 }

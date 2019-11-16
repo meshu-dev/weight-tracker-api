@@ -10,7 +10,7 @@ using WeightTracker.Api.Migrations;
 namespace WeightTracker.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191116142712_Initial")]
+    [Migration("20191116161539_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,34 @@ namespace WeightTracker.Api.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WeightTracker.Api.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Standard"
+                        });
+                });
 
             modelBuilder.Entity("WeightTracker.Api.Entities.Unit", b =>
                 {
@@ -38,7 +66,7 @@ namespace WeightTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units");
+                    b.ToTable("Unit");
 
                     b.HasData(
                         new
@@ -109,7 +137,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AOwplOLVq8UMJp/m+Xii9OSkYScMDXOeeh2LcjIS51xLnbJSyc2KJtzB5o+uSflT5Q==",
+                            Password = "ABPQOYAS/bxyXDNtTwCiJ1FUVc7fx7CulQu6ie0ZodbX+HzMVkOHG/zrz/MGb+N0+Q==",
                             RoleId = 1,
                             UnitId = 1
                         });

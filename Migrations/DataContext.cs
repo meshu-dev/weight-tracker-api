@@ -10,6 +10,7 @@ namespace WeightTracker.Api.Migrations
     {
         private readonly IConfiguration _config;
         public DbSet<Unit> Units { get; set; }
+        public DbSet<Unit> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WeighIn> WeighIns { get; set; }
 
@@ -31,6 +32,12 @@ namespace WeightTracker.Api.Migrations
                 new { Id = 2, Name = "Pounds", ShortName = "lbs" },
                 new { Id = 3, Name = "Stone", ShortName = "st" },
                 new { Id = 4, Name = "Stone & Pounds", ShortName = "st lbs" }
+              );
+
+            modelBuilder.Entity<Role>()
+              .HasData(
+                new { Id = 1, Name = "Admin"},
+                new { Id = 2, Name = "Standard" }
               );
 
             modelBuilder.Entity<User>()
