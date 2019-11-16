@@ -1,4 +1,5 @@
-﻿using System.Web.Helpers;
+﻿using System.Threading.Tasks;
+using System.Web.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeightTracker.Api.Models;
@@ -40,9 +41,9 @@ namespace WeightTracker.Api.Controllers
         [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult Login(AuthModel authModel)
+        public async Task<IActionResult> Login(AuthModel authModel)
         {
-            var existingUser = _userRepository.ReadByEmail(authModel.Email);
+            var existingUser = await _userRepository.ReadByEmailAsync(authModel.Email);
 
             if (existingUser != null)
             {

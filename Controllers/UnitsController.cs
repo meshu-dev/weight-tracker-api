@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,11 +39,11 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type Unit</returns>
         /// <response code="422">Validation error</response>
         [HttpPost()]
-        public IActionResult Post(UnitModel model)
+        public async Task<IActionResult> Post(UnitModel model)
         {
             try
             {
-                var unit = unitRepository.Create(model);
+                var unit = await unitRepository.CreateAsync(model);
                 if (unit == null) return BadRequest("Unit could not be created");
 
                 return this.StatusCode(StatusCodes.Status201Created, unit);
@@ -62,11 +63,11 @@ namespace WeightTracker.Api.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var unit = unitRepository.Read(id);
+                var unit = await unitRepository.ReadAsync(id);
                 if (unit == null) return NotFound($"Unit does not exist with Id {id}");
 
                 return Ok(unit);
@@ -83,11 +84,11 @@ namespace WeightTracker.Api.Controllers
         /// <returns>All available units</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var units = unitRepository.ReadAll();
+                var units = await unitRepository.ReadAllAsync();
                 if (units == null) return NotFound($"No units are available");
 
                 return Ok(units);
@@ -106,16 +107,16 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type Unit</returns>
         /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
-        public IActionResult Put(int id, UnitModel model)
+        public async Task<IActionResult> Put(int id, UnitModel model)
         {
             try
             {
-                var unit = unitRepository.Read(id);
+                var unit = await unitRepository.ReadAsync(id);
                 if (unit == null) return NotFound($"Unit doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                unit = unitRepository.Update(model);
+                unit = await unitRepository.UpdateAsync(model);
                 if (unit == null) return BadRequest("Unit could not be updated");
 
                 return Ok(unit);
@@ -132,12 +133,12 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <param name="id">The id of the weight unit</param>
         [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var unit = unitRepository.Read(id);
+            var unit = await unitRepository.ReadAsync(id);
             if (unit == null) return NotFound();
 
-            var isDeleted = unitRepository.Delete(unit);
+            var isDeleted = await unitRepository.DeleteAsync(unit);
             if (isDeleted == true) return NoContent();
 
             return NotFound("Couldn't delete Unit");

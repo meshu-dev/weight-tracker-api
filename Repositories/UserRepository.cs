@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Helpers;
 using WeightTracker.Api.Entities;
 using WeightTracker.Api.Migrations;
@@ -15,10 +16,7 @@ namespace WeightTracker.Api.Repositories
 
         public override UserModel Create(UserModel model)
         {
-            model.Password = Crypto.HashPassword(model.Password);
-            var entity = mapper.Map<User>(model);
-
-            context.Add(entity);
+            var entity = AddModel(model);
 
             if (Save() == true) {
                 return mapper.Map<UserModel>(entity);
@@ -26,40 +24,106 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
+        public async Task<UserModel> CreateAsync(UserModel model)
+        {
+            var entity = AddModel(model);
+
+            if (await SaveAsync() == true)
+            {
+                return mapper.Map<UserModel>(entity);
+            }
+            return null;
+        }
+
+        private User AddModel(UserModel model)
+        {
+            model.Password = Crypto.HashPassword(model.Password);
+            var entity = mapper.Map<User>(model);
+
+            context.Add(entity);
+            return entity;
+        }
+
         public override UserModel Read(int id)
         {
-            var entity = context.Users
-                .Include(u => u.Unit)
-                .Where(u => u.Id == id)
-                .FirstOrDefault();
+            var entity = ReadQueryable(id).FirstOrDefault();
 
             if (entity == null) return null;
 
             return mapper.Map<UserModel>(entity);
+        }
+
+        public async Task<UserModel> ReadAsync(int id)
+        {
+            IQueryable<User> queryable = ReadQueryable(id);
+            var entity = await queryable.FirstOrDefaultAsync();
+
+            if (entity == null) return null;
+
+            return mapper.Map<UserModel>(entity);
+        }
+
+        private IQueryable<User> ReadQueryable(int id)
+        {
+            return context.Users
+                .Include(u => u.Unit)
+                .Where(u => u.Id == id)
+                .AsQueryable();
         }
 
         public UserModel ReadByEmail(string email)
         {
-            var entity = context.Users
-                .Include(u => u.Unit)
-                .Where(u => u.Email == email)
-                .FirstOrDefault();
+            var entity = ReadByEmailQueryable(email).FirstOrDefault();
 
             if (entity == null) return null;
 
             return mapper.Map<UserModel>(entity);
         }
 
+        public async Task<UserModel> ReadByEmailAsync(string email)
+        {
+            IQueryable<User> queryable = ReadByEmailQueryable(email);
+            var entity = await queryable.FirstOrDefaultAsync();
+
+            if (entity == null) return null;
+
+            return mapper.Map<UserModel>(entity);
+        }
+
+        private IQueryable<User> ReadByEmailQueryable(string email)
+        {
+            return context.Users
+                .Include(u => u.Unit)
+                .Where(u => u.Email == email)
+                .AsQueryable();
+        }
+
         public override UserModel[] ReadAll()
         {
-            var entities = context.Users
-                .AsNoTracking()
-                .Include(u => u.Unit)
-                .ToArray();
+            var entities = ReadAllQueryable()
+                            .ToArray();
 
             if (entities == null) return null;
 
             return mapper.Map<UserModel[]>(entities);
+        }
+
+        public async Task<UserModel[]> ReadAllAsync()
+        {
+            IQueryable<User> queryable = ReadAllQueryable();
+            var entities = await queryable.ToArrayAsync();
+
+            if (entities == null) return null;
+
+            return mapper.Map<UserModel[]>(entities);
+        }
+
+        private IQueryable<User> ReadAllQueryable()
+        {
+            return context.Users
+                .AsNoTracking()
+                .Include(u => u.Unit)
+                .AsQueryable();
         }
 
         public override UserModel Update(UserModel model)
@@ -81,12 +145,36 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
+        public async Task<UserModel> UpdateAsync(UserModel model)
+        {
+            var entity = await context.Users.FindAsync(model.Id);
+            if (entity == null) return null;
+
+            mapper.Map(model, entity);
+
+            if (await SaveAsync() == true)
+            {
+                return mapper.Map<UserModel>(entity);
+            }
+            return null;
+        }
+
         public override bool Delete(UserModel model)
         {
-            var entity = mapper.Map<User>(model);
-
-            context.Users.Remove(entity);
+            DeleteModel(model);
             return Save();
+        }
+
+        public async Task<bool> DeleteAsync(UserModel model)
+        {
+            DeleteModel(model);
+            return await SaveAsync();
+        }
+
+        private void DeleteModel(UserModel model)
+        {
+            var entity = mapper.Map<User>(model);
+            context.Users.Remove(entity);
         }
     }
     #pragma warning restore CS1591
