@@ -37,6 +37,7 @@ namespace WeightTracker.Api.Migrations
               .HasData(
                 new {
                     Id = 1,
+                    RoleId = 1,
                     UnitId = 1,
                     Email = "harmeshuppal@gmail.com",
                     Password = Crypto.HashPassword("12345"),

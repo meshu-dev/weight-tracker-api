@@ -45,7 +45,7 @@ namespace WeightTracker.Api.Controllers
                 var unit = unitRepository.Create(model);
                 if (unit == null) return BadRequest("Unit could not be created");
 
-                return Ok(unit);
+                return this.StatusCode(StatusCodes.Status201Created, unit);
             }
             catch (Exception e)
             {

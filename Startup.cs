@@ -16,6 +16,7 @@ using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeightTracker.Api
 {
@@ -48,6 +49,29 @@ namespace WeightTracker.Api
                 j.SaveToken = true;
                 j.TokenValidationParameters = jwtService.GetTokenValidationParameters();
             });
+
+            // Policy Authentication
+            /*
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "ApiUser",
+                    p => p.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess)
+                );
+
+
+            }); */
+            
+            /*
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "ApiUser",
+                    policy => policy.Requirements.Add(new UserRoleRequirement("admin"))
+                );
+            });
+
+            services.AddSingleton<IAuthorizationHandler, PolicyChecker>(); */
 
             // AutoMapper
             var mappingConfig = new MapperConfiguration(mappingConfig =>
@@ -98,77 +122,6 @@ namespace WeightTracker.Api
                         new List<string>()
                     }
                 });
-
-                /*
-                // Adds authorize button to Swagger UI Docs
-                setupAction.AddSecurityDefinition("basicAuth", new OpenApiSecurityScheme()
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "basic",
-                    Description = "Input your username and password to access this API"
-                });
-
-                // Add locks to each endpoint in Swagger UI
-                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "basicAuth" }
-                        }, new List<string>() }
-                });
-
-                setupAction.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
-                }); */
-
-                /*
-                // Adds authorize button to Swagger UI Docs
-                setupAction.AddSecurityDefinition("basicAuth", new OpenApiSecurityScheme()
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "basic",
-                    Description = "Input your username and password to access this API"
-                });
-
-                // Add locks to each endpoint in Swagger UI
-                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "basicAuth" }
-                        }, new List<string>() }
-                });
-
-                // Run actions dependant on API Version selected in top right dropdown on Swagger UI
-                /*
-                setupAction.DocInclusionPredicate((documentName, apiDescription) =>
-                {
-                    //var actionApiVersionModel = apiDescription.ActionDescriptor
-                    //.GetApiVersionModel(ApiVersionMapping.Explicit | ApiVersionMapping.Implicit);
-
-                    if (actionApiVersionModel == null)
-                    {
-                        return true;
-                    }
-
-                    if (actionApiVersionModel.DeclaredApiVersions.Any())
-                    {
-                        return actionApiVersionModel.DeclaredApiVersions.Any(v =>
-                        $"LibraryOpenAPISpecificationv{v.ToString()}" == documentName);
-                    }
-                    return actionApiVersionModel.ImplementedApiVersions.Any(v =>
-                        $"LibraryOpenAPISpecificationv{v.ToString()}" == documentName);
-                }); */
 
                 // Required to include method XML comments in Swagger UI
                 var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

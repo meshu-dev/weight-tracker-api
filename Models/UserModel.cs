@@ -14,6 +14,36 @@ namespace WeightTracker.Api.Models
         /// </summary>
         public int Id { get; set; }
 
+        /*
+        /// <summary>
+        /// An role id for the user
+        /// </summary>
+        private int _roleId { get; set; }
+
+        [Required]
+        [EnumDataType(typeof(Role))]
+        public virtual Role Role
+        {
+            get
+            {
+                return (Role) this._roleId;
+            }
+            set
+            {
+                _roleId = (int) value;
+            }
+        } */
+
+        //public int RoleId { get; set; }
+
+        public Role Role { get; set; }
+
+        /// <summary>
+        /// A role type for the user
+        /// </summary>
+        //[EnumDataType(typeof(Role))]
+        //public Role Role { get; set; }
+
         /// <summary>
         /// An unit id for the user
         /// </summary>
@@ -52,5 +82,11 @@ namespace WeightTracker.Api.Models
         /// The last name of the user
         /// </summary>
         public string LastName { get; set; }
+    }
+
+    public enum Role
+    {
+        Admin = 1,
+        Standard = 2
     }
 }

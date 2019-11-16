@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WeightTracker.Api.Controllers
 {
@@ -29,6 +30,20 @@ namespace WeightTracker.Api.Controllers
         public IActionResult Test()
         {
             return Ok(new { Status = "Test Ok" });
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("test/admin")]
+        public string PingAdmin()
+        {
+            return "Pong";
+        }
+
+        [Authorize(Roles = "Admin2")]
+        [HttpGet("test/admin2")]
+        public string PingAdmin2()
+        {
+            return "Pong";
         }
     }
 }

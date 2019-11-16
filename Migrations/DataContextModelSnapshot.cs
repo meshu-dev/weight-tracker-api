@@ -88,6 +88,9 @@ namespace WeightTracker.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
 
@@ -104,7 +107,8 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AEbrvNH2AOdBPX8vMFVHQfKrYS73qfD/8DSSmirr7KaTTsvRXWpMoaGpYPsFrhI/LQ==",
+                            Password = "AOwplOLVq8UMJp/m+Xii9OSkYScMDXOeeh2LcjIS51xLnbJSyc2KJtzB5o+uSflT5Q==",
+                            RoleId = 1,
                             UnitId = 1
                         });
                 });

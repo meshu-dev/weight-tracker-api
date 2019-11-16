@@ -9,10 +9,8 @@ using WeightTracker.Api.Migrations;
 
 namespace WeightTracker.Api.Migrations
 {
-    #pragma warning disable CS1591
-
     [DbContext(typeof(DataContext))]
-    [Migration("20191105224543_Initial")]
+    [Migration("20191116142712_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +90,9 @@ namespace WeightTracker.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
 
@@ -108,7 +109,8 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AEbrvNH2AOdBPX8vMFVHQfKrYS73qfD/8DSSmirr7KaTTsvRXWpMoaGpYPsFrhI/LQ==",
+                            Password = "AOwplOLVq8UMJp/m+Xii9OSkYScMDXOeeh2LcjIS51xLnbJSyc2KJtzB5o+uSflT5Q==",
+                            RoleId = 1,
                             UnitId = 1
                         });
                 });
@@ -157,5 +159,4 @@ namespace WeightTracker.Api.Migrations
 #pragma warning restore 612, 618
         }
     }
-    #pragma warning restore CS1591
 }

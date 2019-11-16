@@ -56,7 +56,7 @@ namespace WeightTracker.Api.Controllers
                 var user = userRepository.Create(model);
                 if (user == null) return BadRequest("User could not be created");
 
-                return Ok(user);
+                return this.StatusCode(StatusCodes.Status201Created, user);
             }
             catch (Exception e)
             {

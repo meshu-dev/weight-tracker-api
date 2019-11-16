@@ -10,6 +10,9 @@ namespace WeightTracker.Api.Entities
         public int Id { get; set; }
 
         [Required]
+        public int RoleId { get; set; }
+
+        [Required]
         public int UnitId { get; set; }
 
         [Required]

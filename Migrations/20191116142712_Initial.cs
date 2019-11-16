@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WeightTracker.Api.Migrations
 {
-    #pragma warning disable CS1591
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,6 +27,7 @@ namespace WeightTracker.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(nullable: false),
                     UnitId = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
@@ -79,8 +79,8 @@ namespace WeightTracker.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AEbrvNH2AOdBPX8vMFVHQfKrYS73qfD/8DSSmirr7KaTTsvRXWpMoaGpYPsFrhI/LQ==", 1 });
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AOwplOLVq8UMJp/m+Xii9OSkYScMDXOeeh2LcjIS51xLnbJSyc2KJtzB5o+uSflT5Q==", 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_UnitId",
@@ -105,5 +105,4 @@ namespace WeightTracker.Api.Migrations
                 name: "Units");
         }
     }
-    #pragma warning restore CS1591
 }

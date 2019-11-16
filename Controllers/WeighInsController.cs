@@ -70,7 +70,7 @@ namespace WeightTracker.Api.Controllers
                 var weighIn = weighInRepository.Create(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be created");
 
-                return Ok(weighIn);
+                return this.StatusCode(StatusCodes.Status201Created, weighIn);
             }
             catch (Exception e)
             {
