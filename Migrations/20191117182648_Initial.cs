@@ -8,7 +8,7 @@ namespace WeightTracker.Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Role",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,11 +17,11 @@ namespace WeightTracker.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Unit",
+                name: "Units",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -31,7 +31,7 @@ namespace WeightTracker.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Unit", x => x.Id);
+                    table.PrimaryKey("PK_Units", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,15 +51,15 @@ namespace WeightTracker.Api.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Role_RoleId",
+                        name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Role",
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Users_Unit_UnitId",
+                        name: "FK_Users_Units_UnitId",
                         column: x => x.UnitId,
-                        principalTable: "Unit",
+                        principalTable: "Units",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -86,7 +86,7 @@ namespace WeightTracker.Api.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Role",
+                table: "Roles",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -95,7 +95,7 @@ namespace WeightTracker.Api.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Unit",
+                table: "Units",
                 columns: new[] { "Id", "Name", "ShortName" },
                 values: new object[,]
                 {
@@ -108,12 +108,12 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "ADBaaXozW4s9SfPG1ApKOCTJxrAZgN2+EO9JxOf8g6D5BTiQmOgrOmcBrPz93Q8fTg==", 1, 1 });
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AHb1uQCq8yOXzyWMYkd4fb63grLd8HzD7Gs86UcturyKqMA4qmCNGi/z0bqEtTr6mg==", 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 2, "test@gmail.com", "Test", "Man", "AOMltzY3qnf0enkvDtONwNJNT0ZU24Nelk0Q9aW23mqOW/G2vltaNsW4tJhpZE8UBA==", 2, 1 });
+                values: new object[] { 2, "test@gmail.com", "Test", "Man", "ANfmgy6s3BRQZhY9Vna0IcZOi+hFpWAH+rh30h2HvZPNJqNeAb1je3TYUITPWBGV0w==", 2, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -140,10 +140,10 @@ namespace WeightTracker.Api.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Unit");
+                name: "Units");
         }
     }
 }

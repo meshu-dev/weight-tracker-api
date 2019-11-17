@@ -32,7 +32,7 @@ namespace WeightTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -64,7 +64,7 @@ namespace WeightTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Unit");
+                    b.ToTable("Units");
 
                     b.HasData(
                         new
@@ -137,7 +137,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "ADBaaXozW4s9SfPG1ApKOCTJxrAZgN2+EO9JxOf8g6D5BTiQmOgrOmcBrPz93Q8fTg==",
+                            Password = "AHb1uQCq8yOXzyWMYkd4fb63grLd8HzD7Gs86UcturyKqMA4qmCNGi/z0bqEtTr6mg==",
                             RoleId = 1,
                             UnitId = 1
                         },
@@ -147,7 +147,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             LastName = "Man",
-                            Password = "AOMltzY3qnf0enkvDtONwNJNT0ZU24Nelk0Q9aW23mqOW/G2vltaNsW4tJhpZE8UBA==",
+                            Password = "ANfmgy6s3BRQZhY9Vna0IcZOi+hFpWAH+rh30h2HvZPNJqNeAb1je3TYUITPWBGV0w==",
                             RoleId = 2,
                             UnitId = 1
                         });

@@ -10,7 +10,7 @@ namespace WeightTracker.Api.Migrations
     {
         private readonly IConfiguration _config;
         public DbSet<Unit> Units { get; set; }
-        public DbSet<Unit> Roles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WeighIn> WeighIns { get; set; }
 
