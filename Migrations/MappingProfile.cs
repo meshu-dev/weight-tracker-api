@@ -12,6 +12,9 @@ namespace WeightTracker.Api.Migrations
             this.CreateMap<Unit, UnitModel>()
                 .ReverseMap();
 
+            this.CreateMap<Role, RoleModel>()
+                .ReverseMap();
+
             this.CreateMap<User, UserModel>()
                 .ReverseMap();
 
