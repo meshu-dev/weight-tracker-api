@@ -47,6 +47,7 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type User</returns>
         /// <response code="422">Validation error</response>
         [HttpPost()]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post(UserModel model)
         {
             try
@@ -72,6 +73,7 @@ namespace WeightTracker.Api.Controllers
         /// <param name="id">The id of the user</param>
         /// <returns>The user matching the Id</returns>
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Get(int id)
         {
             try
@@ -93,6 +95,7 @@ namespace WeightTracker.Api.Controllers
         /// <param name="email">The e-mail address of the user</param>
         /// <returns>The user matching the e-mail address</returns>
         [HttpGet("email/{email}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByEmail(string email)
         {
             try
@@ -113,6 +116,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>Multiple users</returns>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -136,6 +140,7 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type User</returns>
         /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put(int id, UserModel model)
         {
             try
@@ -165,6 +170,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <param name="id">The id of the user</param>
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var user = await userRepository.ReadAsync(id);

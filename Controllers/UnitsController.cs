@@ -39,6 +39,7 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type Unit</returns>
         /// <response code="422">Validation error</response>
         [HttpPost()]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post(UnitModel model)
         {
             try
@@ -61,6 +62,7 @@ namespace WeightTracker.Api.Controllers
         /// <param name="id">The id of the weight unit</param>
         /// <returns>The unit matching the id</returns>
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin, Standard")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
@@ -83,6 +85,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>All available units</returns>
         [HttpGet]
+        [Authorize(Roles = "Admin, Standard")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
@@ -107,6 +110,7 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type Unit</returns>
         /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Put(int id, UnitModel model)
         {
             try
@@ -133,6 +137,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <param name="id">The id of the weight unit</param>
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var unit = await unitRepository.ReadAsync(id);

@@ -56,6 +56,7 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type WeighIn</returns>
         /// <response code="422">Validation error</response>
         [HttpPost()]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Post(WeighInModel model)
         {
             try
@@ -86,6 +87,7 @@ namespace WeightTracker.Api.Controllers
         /// <param name="id">The id of the weigh-in</param>
         /// <returns>The weigh-in matching the id</returns>
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Get(int id)
         {
             try
@@ -106,6 +108,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>Multiple weigh-ins</returns>
         [HttpGet]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> GetAll([FromQuery] WeighInListParams listParams)
         {
             try
@@ -130,6 +133,7 @@ namespace WeightTracker.Api.Controllers
         /// <returns>An ActionResult of type WeighIn</returns>
         /// <response code="422">Validation error</response>
         [HttpPut("{id:int}")]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Put(int id, WeighInModel model)
         {
             try
@@ -159,6 +163,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <param name="id">The id of the weigh-in</param>
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Delete(int id)
         {
             var weighIn = await weighInRepository.ReadAsync(id);

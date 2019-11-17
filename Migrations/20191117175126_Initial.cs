@@ -108,12 +108,12 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "ADWsOARZipMiuPnN9cxWyNUs0moJso6zjgXU1CAtbXf+cT4ILQ1GyKlUn54DNpsoYw==", 1, 1 });
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "ADBaaXozW4s9SfPG1ApKOCTJxrAZgN2+EO9JxOf8g6D5BTiQmOgrOmcBrPz93Q8fTg==", 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 2, "test@gmail.com", "Test", "Man", "ANwikBx3wx0Fahx+AsH2DlJf/0CSA01GPP6cYtp0KgAQqhn3HBroL3m4MTHDUahnqg==", 2, 1 });
+                values: new object[] { 2, "test@gmail.com", "Test", "Man", "AOMltzY3qnf0enkvDtONwNJNT0ZU24Nelk0Q9aW23mqOW/G2vltaNsW4tJhpZE8UBA==", 2, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",

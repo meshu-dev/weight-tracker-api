@@ -31,24 +31,7 @@ namespace WeightTracker.Api.Controllers
         [Route("test")]
         public IActionResult Test()
         {
-            //var a = Enum.GetNames(typeof(Role));
-            //var a = Enum.GetName(typeof(Role), 1);
-
-            return Ok(new { Status = "AAA" });
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("test/admin")]
-        public string PingAdmin()
-        {
-            return "Pong";
-        }
-
-        [Authorize(Roles = "Admin2")]
-        [HttpGet("test/admin2")]
-        public string PingAdmin2()
-        {
-            return "Pong";
+            return Ok(new { Status = "Test Ok" });
         }
     }
 }

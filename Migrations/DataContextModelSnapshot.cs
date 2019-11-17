@@ -137,7 +137,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "ADWsOARZipMiuPnN9cxWyNUs0moJso6zjgXU1CAtbXf+cT4ILQ1GyKlUn54DNpsoYw==",
+                            Password = "ADBaaXozW4s9SfPG1ApKOCTJxrAZgN2+EO9JxOf8g6D5BTiQmOgrOmcBrPz93Q8fTg==",
                             RoleId = 1,
                             UnitId = 1
                         },
@@ -147,7 +147,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             LastName = "Man",
-                            Password = "ANwikBx3wx0Fahx+AsH2DlJf/0CSA01GPP6cYtp0KgAQqhn3HBroL3m4MTHDUahnqg==",
+                            Password = "AOMltzY3qnf0enkvDtONwNJNT0ZU24Nelk0Q9aW23mqOW/G2vltaNsW4tJhpZE8UBA==",
                             RoleId = 2,
                             UnitId = 1
                         });
