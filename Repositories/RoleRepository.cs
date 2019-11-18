@@ -42,7 +42,8 @@ namespace WeightTracker.Api.Repositories
 
         public override RoleModel Read(int id)
         {
-            var entity = context.Units.Find(id);
+            var entity = context.Roles.Find(id);
+            context.Entry(entity).State = EntityState.Detached;
 
             if (entity == null) return null;
 
@@ -52,8 +53,7 @@ namespace WeightTracker.Api.Repositories
 
         public async Task<RoleModel> ReadAsync(int id)
         {
-            var entity = await context.Units.FindAsync(id);
-
+            var entity = await context.Roles.FindAsync(id);
             if (entity == null) return null;
 
             context.Entry(entity).State = EntityState.Detached;
@@ -81,16 +81,14 @@ namespace WeightTracker.Api.Repositories
 
         private IQueryable<Role> ReadAllQueryable()
         {
-            return null;
-            /*
             return context.Roles
                 .AsNoTracking()
-                .AsQueryable(); */
+                .AsQueryable();
         }
 
         public override RoleModel Update(RoleModel model)
         {
-            var entity = context.Units.Find(model.Id);
+            var entity = context.Roles.Find(model.Id);
             if (entity == null) return null;
 
             mapper.Map(model, entity);
@@ -104,7 +102,7 @@ namespace WeightTracker.Api.Repositories
 
         public async Task<RoleModel> UpdateAsync(RoleModel model)
         {
-            var entity = await context.Units.FindAsync(model.Id);
+            var entity = await context.Roles.FindAsync(model.Id);
             if (entity == null) return null;
 
             mapper.Map(model, entity);
@@ -131,7 +129,7 @@ namespace WeightTracker.Api.Repositories
         private void DeleteModel(RoleModel model)
         {
             var entity = mapper.Map<Role>(model);
-            //context.Roles.Remove(entity);
+            context.Roles.Remove(entity);
         }
     }
 #pragma warning restore CS1591

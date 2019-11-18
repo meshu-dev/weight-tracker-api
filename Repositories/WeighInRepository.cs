@@ -58,6 +58,16 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<WeighInModel>(entity);
         }
 
+        public async Task<WeighInModel> ReadAsync2(int id)
+        {
+            var entity = await context.WeighIns.FindAsync(id);
+            context.Entry(entity).State = EntityState.Detached;
+
+            if (entity == null) return null;
+
+            return mapper.Map<WeighInModel>(entity);
+        }
+
         private IQueryable<WeighIn> ReadQueryable(int id)
         {
             return context.WeighIns

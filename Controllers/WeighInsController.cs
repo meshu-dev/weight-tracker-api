@@ -166,7 +166,7 @@ namespace WeightTracker.Api.Controllers
         [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> Delete(int id)
         {
-            var weighIn = await weighInRepository.ReadAsync(id);
+            var weighIn = await weighInRepository.ReadAsync2(id);
             if (weighIn == null) return NotFound();
 
             var isDeleted = await weighInRepository.DeleteAsync(weighIn);

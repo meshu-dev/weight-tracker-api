@@ -142,6 +142,7 @@ namespace WeightTracker.Api
 
             // Repositories
             services.AddScoped<Repository<UnitModel>, UnitRepository>();
+            services.AddScoped<Repository<RoleModel>, RoleRepository>();
             services.AddScoped<Repository<UserModel>, UserRepository>();
             services.AddScoped<Repository<WeighInModel>, WeighInRepository>();
 

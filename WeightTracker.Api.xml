@@ -100,12 +100,17 @@
             Manages users in data store
             </summary>
         </member>
+        <member name="F:WeightTracker.Api.Controllers.UsersController.roleRepository">
+            <summary>
+            Manages user roles in data store
+            </summary>
+        </member>
         <member name="F:WeightTracker.Api.Controllers.UsersController.unitRepository">
             <summary>
             Manages units in data store
             </summary>
         </member>
-        <member name="M:WeightTracker.Api.Controllers.UsersController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel})">
+        <member name="M:WeightTracker.Api.Controllers.UsersController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.RoleModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel})">
             <summary>
             Contructor used to create user controller
             </summary>

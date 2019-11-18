@@ -9,11 +9,17 @@ namespace WeightTracker.Api.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int RoleId { get; set; }
+        //[Required]
+        //public int RoleId { get; set; }
 
-        [Required]
-        public int UnitId { get; set; }
+        //[Required]
+        //public int UnitId { get; set; }
+
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }
+
+        [ForeignKey("UnitId")]
+        public virtual Unit Unit { get; set; }
 
         [Required]
         [EmailAddress]
@@ -28,12 +34,6 @@ namespace WeightTracker.Api.Entities
 
         [MaxLength(50)]
         public string LastName { get; set; }
-
-        [ForeignKey("RoleId")]
-        public virtual Role Role { get; set; }
-
-        [ForeignKey("UnitId")]
-        public virtual Unit Unit { get; set; }
     }
     #pragma warning restore CS1591
 }

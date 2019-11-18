@@ -35,6 +35,23 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
+        public async Task<UserModel> CreateAsync(
+            UserModel model,
+            RoleModel roleModel,
+            UnitModel unitModel
+        ) {
+            var entity = AddModel(model);
+
+            entity.Role = mapper.Map<Role>(roleModel);
+            entity.Unit = mapper.Map<Unit>(unitModel);
+
+            if (await SaveAsync() == true)
+            {
+                return mapper.Map<UserModel>(entity);
+            }
+            return null;
+        }
+
         private User AddModel(UserModel model)
         {
             model.Password = Crypto.HashPassword(model.Password);
@@ -57,6 +74,26 @@ namespace WeightTracker.Api.Repositories
         {
             IQueryable<User> queryable = ReadQueryable(id);
             var entity = await queryable.FirstOrDefaultAsync();
+
+            if (entity == null) return null;
+
+            return mapper.Map<UserModel>(entity);
+        }
+
+        public async Task<UserModel> ReadAsync2(int id)
+        {
+            var entity = await context.Users.FindAsync(id);
+            context.Entry(entity).State = EntityState.Detached;
+
+            if (entity == null) return null;
+
+            return mapper.Map<UserModel>(entity);
+        }
+
+        public async Task<UserModel> ReadAsync3(int id)
+        {
+            var entity = await context.Users.FindAsync(id);
+            //context.Entry(entity).State = EntityState.Detached;
 
             if (entity == null) return null;
 
@@ -142,6 +179,32 @@ namespace WeightTracker.Api.Repositories
             }
 
             if (Save() == true)
+            {
+                return mapper.Map<UserModel>(entity);
+            }
+            return null;
+        }
+
+        public async Task<UserModel> UpdateAsync(
+            UserModel model,
+            RoleModel roleModel,
+            UnitModel unitModel
+        ) {
+            var entity = await context.Users.FindAsync(model.Id);
+            if (entity == null) return null;
+
+            entity.Role = mapper.Map<Role>(roleModel);
+            entity.Unit = mapper.Map<Unit>(unitModel);
+
+            mapper.Map(model, entity);
+
+            if (model.Password != entity.Password)
+            {
+                model.Password = Crypto.HashPassword(model.Password);
+            }
+            //context.Update(entity);
+
+            if (await SaveAsync() == true)
             {
                 return mapper.Map<UserModel>(entity);
             }

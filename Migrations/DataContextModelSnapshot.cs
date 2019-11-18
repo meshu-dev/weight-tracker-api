@@ -116,10 +116,10 @@ namespace WeightTracker.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -137,7 +137,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AHb1uQCq8yOXzyWMYkd4fb63grLd8HzD7Gs86UcturyKqMA4qmCNGi/z0bqEtTr6mg==",
+                            Password = "AJS458bA2Ix4NDtTkwcKWy7PFCLZFnU1lE3PY14DI7aOJLok7sTIGasv++N/YF2LnA==",
                             RoleId = 1,
                             UnitId = 1
                         },
@@ -147,7 +147,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             LastName = "Man",
-                            Password = "ANfmgy6s3BRQZhY9Vna0IcZOi+hFpWAH+rh30h2HvZPNJqNeAb1je3TYUITPWBGV0w==",
+                            Password = "AEZgUshL+26BPLm4/ykpGIY7qRFwulOtvPa9CPM0N1AySOvAzMnR6wjmNrHThjWF4Q==",
                             RoleId = 2,
                             UnitId = 1
                         });
@@ -181,15 +181,11 @@ namespace WeightTracker.Api.Migrations
                 {
                     b.HasOne("WeightTracker.Api.Entities.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("WeightTracker.Api.Entities.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId");
                 });
 
             modelBuilder.Entity("WeightTracker.Api.Entities.WeighIn", b =>

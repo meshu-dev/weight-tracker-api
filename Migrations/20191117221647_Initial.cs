@@ -40,8 +40,8 @@ namespace WeightTracker.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(nullable: false),
-                    UnitId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<int>(nullable: true),
+                    UnitId = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: true),
@@ -55,13 +55,13 @@ namespace WeightTracker.Api.Migrations
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Units_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Units",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,12 +108,12 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AHb1uQCq8yOXzyWMYkd4fb63grLd8HzD7Gs86UcturyKqMA4qmCNGi/z0bqEtTr6mg==", 1, 1 });
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AJS458bA2Ix4NDtTkwcKWy7PFCLZFnU1lE3PY14DI7aOJLok7sTIGasv++N/YF2LnA==", 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 2, "test@gmail.com", "Test", "Man", "ANfmgy6s3BRQZhY9Vna0IcZOi+hFpWAH+rh30h2HvZPNJqNeAb1je3TYUITPWBGV0w==", 2, 1 });
+                values: new object[] { 2, "test@gmail.com", "Test", "Man", "AEZgUshL+26BPLm4/ykpGIY7qRFwulOtvPa9CPM0N1AySOvAzMnR6wjmNrHThjWF4Q==", 2, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",

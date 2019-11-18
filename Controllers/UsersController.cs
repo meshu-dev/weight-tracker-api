@@ -25,6 +25,11 @@ namespace WeightTracker.Api.Controllers
         protected readonly UserRepository userRepository;
 
         /// <summary>
+        /// Manages user roles in data store
+        /// </summary>
+        protected readonly RoleRepository roleRepository;
+
+        /// <summary>
         /// Manages units in data store
         /// </summary>
         protected readonly UnitRepository unitRepository;
@@ -34,9 +39,11 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         public UsersController(
             Repository<UserModel> userRepository,
+            Repository<RoleModel> roleRepository,
             Repository<UnitModel> unitRepository
         ) {
             this.userRepository = (UserRepository) userRepository;
+            this.roleRepository = (RoleRepository) roleRepository;
             this.unitRepository = (UnitRepository) unitRepository;
         }
 
@@ -52,10 +59,13 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
+                var role = await roleRepository.ReadAsync(model.RoleId);
+                if (role == null) return BadRequest("User role not exist with provided Id");
+
                 var unit = await unitRepository.ReadAsync(model.UnitId);
                 if (unit == null) return BadRequest("Unit does not exist with provided Id");
 
-                var user = await userRepository.CreateAsync(model);
+                var user = await userRepository.CreateAsync(model, role, unit);
                 if (user == null) return BadRequest("User could not be created");
 
                 return this.StatusCode(StatusCodes.Status201Created, user);
@@ -145,22 +155,25 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
+                var role = await roleRepository.ReadAsync(model.RoleId);
+                if (role == null) return BadRequest(new { message = "User role not exist with provided Id" });
+
                 var unit = await unitRepository.ReadAsync(model.UnitId);
                 if (unit == null) return BadRequest("Unit does not exist with provided Id");
 
-                var user = await userRepository.ReadAsync(id);
+                var user = await userRepository.ReadAsync3(id);
                 if (user == null) return NotFound($"User doesn't exist with Id {id}");
 
                 model.Id = id;
 
-                user = await userRepository.UpdateAsync(model);
+                user = await userRepository.UpdateAsync(model, role, unit);
                 if (user == null) return BadRequest("User could not be updated");
 
                 return Ok(user);
             }
             catch (Exception e)
             {
-                //throw e;
+                throw e;
                 return this.StatusCode(StatusCodes.Status500InternalServerError, e);
             }
         }
@@ -173,7 +186,7 @@ namespace WeightTracker.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await userRepository.ReadAsync(id);
+            var user = await userRepository.ReadAsync2(id);
             if (user == null) return NotFound();
 
             var isDeleted = await userRepository.DeleteAsync(user);

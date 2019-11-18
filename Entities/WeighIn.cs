@@ -13,14 +13,14 @@ namespace WeightTracker.Api.Entities
         [Required]
         public int UserId { get; set; }
 
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+
         [Required]
         public string Value { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
-
-        [ForeignKey("UserId")]
-        public User User { get; set; }
     }
     #pragma warning restore CS1591
 }
