@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -40,50 +39,6 @@ namespace WeightTracker.Api.Services
                 ValidateAudience = false
             };
         }
-
-        /*
-        public string CreateToken(string name)
-        {
-            var claim = new[]
-            {
-                new Claim(ClaimTypes.Name, name),
-                new Claim(ClaimTypes.Role, "Admin"),
-                new Claim(ClaimTypes.Role, "Admin2"),
-                new Claim(ClaimTypes.Role, "SuperUser")
-            };
-            var jwtKey = _config.GetSection("Jwt").GetSection("Key").Value;
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-
-            var issuer = _config.GetSection("Jwt").GetSection("Issuer").Value;
-            var audience = _config.GetSection("Jwt").GetSection("Audience").Value;
-
-            var accessExpiration = _config.GetSection("Jwt").GetSection("AccessExpiration").Value;
-            Double accessExpirationDouble = Convert.ToDouble(accessExpiration);
-
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var jwtToken = new JwtSecurityToken(
-                issuer,
-                audience,
-                claim,
-                expires: DateTime.Now.AddMinutes(accessExpirationDouble),
-                signingCredentials: credentials
-            );
-            return _tokenHandler.WriteToken(jwtToken);
-        } */
-
-            /*
-        public string CreateToken(string name)
-        {
-            var claim = new[]
-            {
-                new Claim(ClaimTypes.Name, name),
-                new Claim(ClaimTypes.Role, "Admin"),
-                new Claim(ClaimTypes.Role, "Admin2"),
-                new Claim(ClaimTypes.Role, "SuperUser")
-            };
-            return CreateToken(claim);
-        } */
 
         public string CreateToken(UserModel user)
         {

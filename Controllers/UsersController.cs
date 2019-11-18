@@ -161,7 +161,7 @@ namespace WeightTracker.Api.Controllers
                 var unit = await unitRepository.ReadAsync(model.UnitId);
                 if (unit == null) return BadRequest("Unit does not exist with provided Id");
 
-                var user = await userRepository.ReadAsync3(id);
+                var user = await userRepository.ReadAsync(id, true);
                 if (user == null) return NotFound($"User doesn't exist with Id {id}");
 
                 model.Id = id;
@@ -186,7 +186,7 @@ namespace WeightTracker.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var user = await userRepository.ReadAsync2(id);
+            var user = await userRepository.ReadAsync(id, false);
             if (user == null) return NotFound();
 
             var isDeleted = await userRepository.DeleteAsync(user);

@@ -289,6 +289,16 @@
             An id for the user
             </summary>
         </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.RoleId">
+            <summary>
+            An id for the user role
+            </summary>
+        </member>
+        <member name="P:WeightTracker.Api.Models.UserModel.RoleName">
+            <summary>
+            The name of the user role
+            </summary>
+        </member>
         <member name="P:WeightTracker.Api.Models.UserModel.UnitId">
             <summary>
             An unit id for the user

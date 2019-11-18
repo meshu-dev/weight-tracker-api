@@ -80,21 +80,14 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UserModel>(entity);
         }
 
-        public async Task<UserModel> ReadAsync2(int id)
+        public async Task<UserModel> ReadAsync(int id, bool isTracked)
         {
             var entity = await context.Users.FindAsync(id);
-            context.Entry(entity).State = EntityState.Detached;
-
-            if (entity == null) return null;
-
-            return mapper.Map<UserModel>(entity);
-        }
-
-        public async Task<UserModel> ReadAsync3(int id)
-        {
-            var entity = await context.Users.FindAsync(id);
-            //context.Entry(entity).State = EntityState.Detached;
-
+            
+            if (isTracked == false)
+            {
+                context.Entry(entity).State = EntityState.Detached;
+            }
             if (entity == null) return null;
 
             return mapper.Map<UserModel>(entity);
@@ -185,6 +178,20 @@ namespace WeightTracker.Api.Repositories
             return null;
         }
 
+        public async Task<UserModel> UpdateAsync(UserModel model)
+        {
+            var entity = await context.Users.FindAsync(model.Id);
+            if (entity == null) return null;
+
+            mapper.Map(model, entity);
+
+            if (await SaveAsync() == true)
+            {
+                return mapper.Map<UserModel>(entity);
+            }
+            return null;
+        }
+
         public async Task<UserModel> UpdateAsync(
             UserModel model,
             RoleModel roleModel,
@@ -202,21 +209,6 @@ namespace WeightTracker.Api.Repositories
             {
                 model.Password = Crypto.HashPassword(model.Password);
             }
-            //context.Update(entity);
-
-            if (await SaveAsync() == true)
-            {
-                return mapper.Map<UserModel>(entity);
-            }
-            return null;
-        }
-
-        public async Task<UserModel> UpdateAsync(UserModel model)
-        {
-            var entity = await context.Users.FindAsync(model.Id);
-            if (entity == null) return null;
-
-            mapper.Map(model, entity);
 
             if (await SaveAsync() == true)
             {
