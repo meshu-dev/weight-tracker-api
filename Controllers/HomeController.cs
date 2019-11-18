@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Security.Claims;
 using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Controllers
@@ -31,7 +33,10 @@ namespace WeightTracker.Api.Controllers
         [Route("test")]
         public IActionResult Test()
         {
-            return Ok(new { Status = "Test Ok" });
+            var userId = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault().Value;
+            var role = HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).FirstOrDefault().Value;
+
+            return Ok(new { Status = "Test Ok", userId = userId, role = role });
         }
     }
 }

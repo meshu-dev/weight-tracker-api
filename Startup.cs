@@ -37,6 +37,9 @@ namespace WeightTracker.Api
             var jwtService = new JwtService(new JwtSecurityTokenHandler(), Config);
             services.AddSingleton(jwtService);
 
+            // JWT User Service
+            services.AddSingleton(new JwtUserService());
+
             // JWT Authentication
             services.AddAuthentication(a =>
             {
@@ -49,29 +52,6 @@ namespace WeightTracker.Api
                 j.SaveToken = true;
                 j.TokenValidationParameters = jwtService.GetTokenValidationParameters();
             });
-
-            // Policy Authentication
-            /*
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(
-                    "ApiUser",
-                    p => p.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess)
-                );
-
-
-            }); */
-            
-            /*
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(
-                    "ApiUser",
-                    policy => policy.Requirements.Add(new UserRoleRequirement("admin"))
-                );
-            });
-
-            services.AddSingleton<IAuthorizationHandler, PolicyChecker>(); */
 
             // AutoMapper
             var mappingConfig = new MapperConfiguration(mappingConfig =>

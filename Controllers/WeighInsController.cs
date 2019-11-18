@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +9,7 @@ using WeightTracker.Api.Helpers;
 using WeightTracker.Api.Helpers.ListParams;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
+using WeightTracker.Api.Services;
 
 namespace WeightTracker.Api.Controllers
 {
@@ -31,6 +34,8 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         protected readonly UserRepository userRepository;
 
+        protected readonly JwtUserService jwtUserService;
+
         /// <summary>
         /// Converts weight units
         /// </summary>
@@ -42,10 +47,12 @@ namespace WeightTracker.Api.Controllers
         public WeighInsController(
             Repository<WeighInModel> weighInRepository,
             Repository<UserModel> userRepository,
+            JwtUserService jwtUserService,
             UserUnitConverter userUnitConverter
         ) {
             this.weighInRepository = (WeighInRepository) weighInRepository;
             this.userRepository = (UserRepository) userRepository;
+            this.jwtUserService = jwtUserService;
             this.userUnitConverter = userUnitConverter;
         }
 
@@ -64,6 +71,11 @@ namespace WeightTracker.Api.Controllers
                 // Validation checks
                 var user = await userRepository.ReadAsync(model.UserId);
                 if (user == null) return BadRequest("User does not exist with provided Id");
+
+                if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, user.Id) == false)
+                {
+                    return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "User id must match currently authenticated user id" });
+                }
 
                 // Convert to base unit
                 //model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitName, model.Value);
@@ -95,6 +107,11 @@ namespace WeightTracker.Api.Controllers
                 var weighIn = await weighInRepository.ReadAsync(id);
                 if (weighIn == null) return NotFound($"Weigh in does not exist with Id {id}");
 
+                if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, weighIn.UserId) == false)
+                {
+                    return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "Weigh In does not belong to authenticated user id" });
+                }
+
                 return Ok(weighIn);
             }
             catch (Exception)
@@ -108,7 +125,7 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>Multiple weigh-ins</returns>
         [HttpGet]
-        [Authorize(Roles = "Admin, Standard")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll([FromQuery] WeighInListParams listParams)
         {
             try
@@ -141,6 +158,11 @@ namespace WeightTracker.Api.Controllers
                 var user = await userRepository.ReadAsync(model.UserId);
                 if (user == null) return BadRequest("User does not exist with provided Id");
 
+                if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, user.Id) == false)
+                {
+                    return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "User id is invalid" });
+                }
+
                 var weighIn = await weighInRepository.ReadAsync(id);
                 if (weighIn == null) return NotFound($"Weigh in doesn't exist with Id {id}");
 
@@ -168,6 +190,11 @@ namespace WeightTracker.Api.Controllers
         {
             var weighIn = await weighInRepository.ReadAsync(id, false);
             if (weighIn == null) return NotFound();
+
+            if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, weighIn.UserId) == false)
+            {
+                return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "Weigh In does not belong to authenticated user id" });
+            }
 
             var isDeleted = await weighInRepository.DeleteAsync(weighIn);
             if (isDeleted == true) return NoContent();

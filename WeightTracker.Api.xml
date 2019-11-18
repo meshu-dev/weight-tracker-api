@@ -178,7 +178,7 @@
             Converts weight units
             </summary>
         </member>
-        <member name="M:WeightTracker.Api.Controllers.WeighInsController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.WeighInModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Helpers.UserUnitConverter)">
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.WeighInModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Services.JwtUserService,WeightTracker.Api.Helpers.UserUnitConverter)">
             <summary>
             Contructor used to create weigh-in controller
             </summary>
