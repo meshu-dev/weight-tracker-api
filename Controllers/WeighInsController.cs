@@ -146,13 +146,15 @@ namespace WeightTracker.Api.Controllers
         /// Get a list of weigh-ins for a user specified by the user id
         /// </summary>
         /// <returns>Multiple weigh-ins</returns>
-        [HttpGet("user/{id:int}")]
+        [HttpGet("user")]
         [Authorize(Roles = "Standard")]
-        public async Task<IActionResult> GetAllForUser(int userId, [FromQuery] WeighInListParams listParams)
+        public async Task<IActionResult> GetAllForUser([FromQuery] WeighInListParams listParams)
         {
             try
             {
-                var weighIns = await weighInRepository.ReadAllFromUserAsync(userId, listParams);
+                listParams.UserId = jwtUserService.getUserId(HttpContext);
+
+                var weighIns = await weighInRepository.ReadAllAsync(listParams);
                 if (weighIns == null) return NotFound($"No weigh ins are available");
 
                 return Ok(weighIns);
