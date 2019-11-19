@@ -25,6 +25,7 @@ namespace WeightTracker.Api
     {
         public IConfiguration Config { get; }
 
+
         public Startup(IConfiguration Config)
         {
             this.Config = Config;

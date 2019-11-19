@@ -108,12 +108,22 @@ namespace WeightTracker.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AJS458bA2Ix4NDtTkwcKWy7PFCLZFnU1lE3PY14DI7aOJLok7sTIGasv++N/YF2LnA==", 1, 1 });
+                values: new object[] { 1, "harmeshuppal@gmail.com", "Mesh", "Uppal", "AA0Oot0r2AKu7+LUCYCgkxvmMp0V50DqlCfXZdzBoTobADPqXWeMdofIW8JV7716uQ==", 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "RoleId", "UnitId" },
-                values: new object[] { 2, "test@gmail.com", "Test", "Man", "AEZgUshL+26BPLm4/ykpGIY7qRFwulOtvPa9CPM0N1AySOvAzMnR6wjmNrHThjWF4Q==", 2, 1 });
+                values: new object[] { 2, "test@gmail.com", "Test", "Man", "AGYn7eUm1TwWT4KOGoxLiimmmrKk/2KzXdydZsKTdoSSLT3LCi6ec5El+N0jWPOLTw==", 2, 1 });
+
+            migrationBuilder.InsertData(
+                table: "WeighIns",
+                columns: new[] { "Id", "Date", "UserId", "Value" },
+                values: new object[] { 1, new DateTime(2019, 11, 19, 21, 22, 50, 166, DateTimeKind.Local).AddTicks(6161), 2, "150" });
+
+            migrationBuilder.InsertData(
+                table: "WeighIns",
+                columns: new[] { "Id", "Date", "UserId", "Value" },
+                values: new object[] { 2, new DateTime(2019, 11, 19, 21, 22, 50, 177, DateTimeKind.Local).AddTicks(2330), 2, "160" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",

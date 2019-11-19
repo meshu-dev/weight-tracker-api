@@ -10,7 +10,7 @@ using WeightTracker.Api.Migrations;
 namespace WeightTracker.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191117221647_Initial")]
+    [Migration("20191119212251_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AJS458bA2Ix4NDtTkwcKWy7PFCLZFnU1lE3PY14DI7aOJLok7sTIGasv++N/YF2LnA==",
+                            Password = "AA0Oot0r2AKu7+LUCYCgkxvmMp0V50DqlCfXZdzBoTobADPqXWeMdofIW8JV7716uQ==",
                             RoleId = 1,
                             UnitId = 1
                         },
@@ -149,7 +149,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             LastName = "Man",
-                            Password = "AEZgUshL+26BPLm4/ykpGIY7qRFwulOtvPa9CPM0N1AySOvAzMnR6wjmNrHThjWF4Q==",
+                            Password = "AGYn7eUm1TwWT4KOGoxLiimmmrKk/2KzXdydZsKTdoSSLT3LCi6ec5El+N0jWPOLTw==",
                             RoleId = 2,
                             UnitId = 1
                         });
@@ -177,6 +177,22 @@ namespace WeightTracker.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WeighIns");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2019, 11, 19, 21, 22, 50, 166, DateTimeKind.Local).AddTicks(6161),
+                            UserId = 2,
+                            Value = "150"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2019, 11, 19, 21, 22, 50, 177, DateTimeKind.Local).AddTicks(2330),
+                            UserId = 2,
+                            Value = "160"
+                        });
                 });
 
             modelBuilder.Entity("WeightTracker.Api.Entities.User", b =>

@@ -204,7 +204,7 @@
             </summary>
             <returns>Multiple weigh-ins</returns>
         </member>
-        <member name="M:WeightTracker.Api.Controllers.WeighInsController.GetAllForUser(System.Int32,WeightTracker.Api.Helpers.ListParams.WeighInListParams)">
+        <member name="M:WeightTracker.Api.Controllers.WeighInsController.GetAllForUser(WeightTracker.Api.Helpers.ListParams.WeighInListParams)">
             <summary>
             Get a list of weigh-ins for a user specified by the user id
             </summary>
