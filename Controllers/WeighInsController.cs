@@ -143,6 +143,28 @@ namespace WeightTracker.Api.Controllers
         }
 
         /// <summary>
+        /// Get a list of weigh-ins for a user specified by the user id
+        /// </summary>
+        /// <returns>Multiple weigh-ins</returns>
+        [HttpGet("user/{id:int}")]
+        [Authorize(Roles = "Standard")]
+        public async Task<IActionResult> GetAllForUser(int userId, [FromQuery] WeighInListParams listParams)
+        {
+            try
+            {
+                var weighIns = await weighInRepository.ReadAllFromUserAsync(userId, listParams);
+                if (weighIns == null) return NotFound($"No weigh ins are available");
+
+                return Ok(weighIns);
+            }
+            catch (Exception e)
+            {
+                //throw e;
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "There was an issue getting weigh ins");
+            }
+        }
+
+        /// <summary>
         /// Update a weigh-in by id
         /// </summary>
         /// <param name="id">The id of the weigh-in</param>

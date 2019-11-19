@@ -119,6 +119,27 @@ namespace WeightTracker.Api.Repositories
             return mapper.Map<UserWeighInModel[]>(entities);
         }
 
+        public async Task<WeighInModel[]> ReadAllFromUserAsync(int userId, WeighInListParams listParams)
+        {
+            IQueryable<WeighIn> queryable = ReadAllQueryable(userId);
+            queryable = this.ApplyListParams(queryable, listParams);
+
+            var entities = await queryable.ToArrayAsync();
+            if (entities == null) return null;
+
+            return mapper.Map<UserWeighInModel[]>(entities);
+        }
+
+        private IQueryable<WeighIn> ReadAllQueryable(int userId)
+        {
+            return context.WeighIns
+                .AsNoTracking()
+                .Where(u => u.UserId == userId)
+                .Include(w => w.User)
+                .ThenInclude(u => u.Unit)
+                .AsQueryable();
+        }
+
         private IQueryable<WeighIn> ReadAllQueryable()
         {
             return context.WeighIns
