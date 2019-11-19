@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
-using WeightTracker.Api.Models;
 
 namespace WeightTracker.Api.Controllers
 {
