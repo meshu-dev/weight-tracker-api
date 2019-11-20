@@ -123,34 +123,15 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         /// <returns>Multiple weigh-ins</returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Standard")]
         public async Task<IActionResult> GetAll([FromQuery] WeighInListParams listParams)
         {
             try
             {
-                var weighIns = await weighInRepository.ReadAllAsync(listParams);
-                if (weighIns == null) return NotFound($"No weigh ins are available");
-
-                return Ok(weighIns);
-            }
-            catch (Exception e)
-            {
-                //throw e;
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "There was an issue getting weigh ins");
-            }
-        }
-
-        /// <summary>
-        /// Get a list of weigh-ins for a user specified by the user id
-        /// </summary>
-        /// <returns>Multiple weigh-ins</returns>
-        [HttpGet("user")]
-        [Authorize(Roles = "Standard")]
-        public async Task<IActionResult> GetAllForUser([FromQuery] WeighInListParams listParams)
-        {
-            try
-            {
-                listParams.UserId = jwtUserService.getUserId(HttpContext);
+                if (jwtUserService.isStandardUser(HttpContext) == true)
+                {
+                    listParams.UserId = jwtUserService.getUserId(HttpContext);
+                }
 
                 var weighIns = await weighInRepository.ReadAllAsync(listParams);
                 if (weighIns == null) return NotFound($"No weigh ins are available");
