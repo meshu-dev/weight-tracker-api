@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using System;
 using System.Web.Helpers;
 using WeightTracker.Api.Entities;
 
@@ -20,6 +19,8 @@ namespace WeightTracker.Api.Migrations
         private readonly int AdminUserId = 1;
 
         private readonly int StandardUserId = 2;
+
+        private readonly int StandardTestUserId = 3;
 
         public DataContext(
             DbContextOptions options,
@@ -87,21 +88,126 @@ namespace WeightTracker.Api.Migrations
 
         private void createTestData(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+              .HasData(
+                new
+                {
+                    Id = 3,
+                    RoleId = 2,
+                    UnitId = 2,
+                    Email = "test2@gmail.com",
+                    Password = Crypto.HashPassword("abcdefg"),
+                    FirstName = "Tester",
+                    LastName = "Two"
+                }
+              );
+
             modelBuilder.Entity<WeighIn>()
               .HasData(
                 new
                 {
                     Id = 1,
                     UserId = StandardUserId,
-                    Value = "150",
-                    Date = System.DateTime.Now
+                    Value = "144",
+                    Date = new DateTime(2019, 9, 7, 8, 00, 00)
                 },
                 new
                 {
                     Id = 2,
                     UserId = StandardUserId,
+                    Value = "144",
+                    Date = new DateTime(2019, 9, 14, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 3,
+                    UserId = StandardTestUserId,
                     Value = "160",
-                    Date = System.DateTime.Now
+                    Date = new DateTime(2019, 9, 10, 9, 30, 00)
+                },
+                new
+                {
+                    Id = 4,
+                    UserId = StandardUserId,
+                    Value = "143",
+                    Date = new DateTime(2019, 9, 21, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 5,
+                    UserId = StandardTestUserId,
+                    Value = "159",
+                    Date = new DateTime(2019, 9, 23, 9, 30, 00)
+                },
+                new
+                {
+                    Id = 6,
+                    UserId = StandardUserId,
+                    Value = "141.4",
+                    Date = new DateTime(2019, 9, 28, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 7,
+                    UserId = StandardUserId,
+                    Value = "141",
+                    Date = new DateTime(2019, 10, 5, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 8,
+                    UserId = StandardUserId,
+                    Value = "140",
+                    Date = new DateTime(2019, 10, 12, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 9,
+                    UserId = StandardUserId,
+                    Value = "139.4",
+                    Date = new DateTime(2019, 10, 19, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 10,
+                    UserId = StandardUserId,
+                    Value = "138.2",
+                    Date = new DateTime(2019, 10, 26, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 11,
+                    UserId = StandardTestUserId,
+                    Value = "158.5",
+                    Date = new DateTime(2019, 10, 30, 9, 30, 00)
+                },
+                new
+                {
+                    Id = 12,
+                    UserId = StandardUserId,
+                    Value = "138.4",
+                    Date = new DateTime(2019, 11, 2, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 13,
+                    UserId = StandardUserId,
+                    Value = "137.6",
+                    Date = new DateTime(2019, 11, 9, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 14,
+                    UserId = StandardUserId,
+                    Value = "136.4",
+                    Date = new DateTime(2019, 11, 16, 8, 00, 00)
+                },
+                new
+                {
+                    Id = 15,
+                    UserId = StandardUserId,
+                    Value = "136",
+                    Date = new DateTime(2019, 11, 19, 8, 00, 00)
                 }
               );
         }

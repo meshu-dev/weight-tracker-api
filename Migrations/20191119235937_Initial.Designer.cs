@@ -10,7 +10,7 @@ using WeightTracker.Api.Migrations;
 namespace WeightTracker.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191119212251_Initial")]
+    [Migration("20191119235937_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace WeightTracker.Api.Migrations
                             Email = "harmeshuppal@gmail.com",
                             FirstName = "Mesh",
                             LastName = "Uppal",
-                            Password = "AA0Oot0r2AKu7+LUCYCgkxvmMp0V50DqlCfXZdzBoTobADPqXWeMdofIW8JV7716uQ==",
+                            Password = "ACOG+F5CQHf58fHvRpkgMdky7Fz1ZhIe/wPKXPbSO4chsdbKZ924fseQpUm3RtrQLw==",
                             RoleId = 1,
                             UnitId = 1
                         },
@@ -149,9 +149,19 @@ namespace WeightTracker.Api.Migrations
                             Email = "test@gmail.com",
                             FirstName = "Test",
                             LastName = "Man",
-                            Password = "AGYn7eUm1TwWT4KOGoxLiimmmrKk/2KzXdydZsKTdoSSLT3LCi6ec5El+N0jWPOLTw==",
+                            Password = "ADZ13lG0RywDCqHtM3n6mtzigFJBND2QFE0frSsqa6gchP/ECB7FuUq9hhAvMYLZQg==",
                             RoleId = 2,
                             UnitId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "test2@gmail.com",
+                            FirstName = "Tester",
+                            LastName = "Two",
+                            Password = "AIsrTVzGzE+UoMu6jgn5fJdIJYj1TqIxMBW9pZOijvS0RajQmFY9bo6rpOJjq94YhA==",
+                            RoleId = 2,
+                            UnitId = 2
                         });
                 });
 
@@ -182,16 +192,107 @@ namespace WeightTracker.Api.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2019, 11, 19, 21, 22, 50, 166, DateTimeKind.Local).AddTicks(6161),
+                            Date = new DateTime(2019, 9, 7, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 2,
-                            Value = "150"
+                            Value = "144"
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 11, 19, 21, 22, 50, 177, DateTimeKind.Local).AddTicks(2330),
+                            Date = new DateTime(2019, 9, 14, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 2,
+                            Value = "144"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2019, 9, 10, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 3,
                             Value = "160"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2019, 9, 21, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "143"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2019, 9, 23, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 3,
+                            Value = "159"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Date = new DateTime(2019, 9, 28, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "141.4"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Date = new DateTime(2019, 10, 5, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "141"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Date = new DateTime(2019, 10, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "140"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Date = new DateTime(2019, 10, 19, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "139.4"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Date = new DateTime(2019, 10, 26, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "138.2"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Date = new DateTime(2019, 10, 30, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 3,
+                            Value = "158.5"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Date = new DateTime(2019, 11, 2, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "138.4"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Date = new DateTime(2019, 11, 9, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "137.6"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Date = new DateTime(2019, 11, 16, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "136.4"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Date = new DateTime(2019, 11, 19, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2,
+                            Value = "136"
                         });
                 });
 
