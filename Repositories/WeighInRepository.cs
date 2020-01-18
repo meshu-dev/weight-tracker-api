@@ -190,6 +190,18 @@ namespace WeightTracker.Api.Repositories
             }
             return base.ApplyListParams<WeighIn>(queryable, listParams);
         }
+
+        public int getTotalForUser(int userId)
+        {
+            return context.WeighIns
+                .Where(w => w.UserId == userId)
+                .Count();
+        }
+
+        public int getTotal()
+        {
+            return context.WeighIns.Count();
+        }
     }
     #pragma warning restore CS1591
 }

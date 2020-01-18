@@ -204,12 +204,6 @@
             </summary>
             <returns>Multiple weigh-ins</returns>
         </member>
-        <member name="M:WeightTracker.Api.Controllers.WeighInsController.GetAllForUser(WeightTracker.Api.Helpers.ListParams.WeighInListParams)">
-            <summary>
-            Get a list of weigh-ins for a user specified by the user id
-            </summary>
-            <returns>Multiple weigh-ins</returns>
-        </member>
         <member name="M:WeightTracker.Api.Controllers.WeighInsController.Put(System.Int32,WeightTracker.Api.Models.WeighInModel)">
             <summary>
             Update a weigh-in by id

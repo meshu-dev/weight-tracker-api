@@ -128,10 +128,18 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
+                int totalCount;
+
                 if (jwtUserService.isStandardUser(HttpContext) == true)
                 {
                     listParams.UserId = jwtUserService.getUserId(HttpContext);
+                    totalCount = weighInRepository.getTotalForUser(listParams.UserId);
                 }
+                else
+                {
+                    totalCount = weighInRepository.getTotal();
+                }
+                this.Response.Headers.Add("X-Total-Count", totalCount.ToString());
 
                 var weighIns = await weighInRepository.ReadAllAsync(listParams);
                 if (weighIns == null) return NotFound($"No weigh ins are available");
