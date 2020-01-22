@@ -16,7 +16,7 @@ using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.Net.Http.Headers;
 
 namespace WeightTracker.Api
 {
@@ -24,7 +24,6 @@ namespace WeightTracker.Api
     public class Startup
     {
         public IConfiguration Config { get; }
-
 
         public Startup(IConfiguration Config)
         {
@@ -138,7 +137,7 @@ namespace WeightTracker.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
@@ -152,7 +151,13 @@ namespace WeightTracker.Api
                 s.RoutePrefix = "swagger";
             });
 
-            app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(c => {
+                c.WithOrigins("http://localhost:4200")
+                 .AllowCredentials()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .WithExposedHeaders("X-Total-Count");
+            });
             app.UseAuthentication();
             app.UseAuthorization();
 

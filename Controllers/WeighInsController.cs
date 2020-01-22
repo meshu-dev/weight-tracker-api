@@ -155,6 +155,9 @@ namespace WeightTracker.Api.Controllers
                 }
                 this.Response.Headers.Add("X-Total-Count", totalCount.ToString());
 
+                string[] allowedOrigin = new string[] { "http://localhost:4200", "http://localhost:2052" };
+                this.Response.Headers.Add("Access-Control-Allow-Origin", allowedOrigin);
+
                 var weighIns = await weighInRepository.ReadAllAsync(listParams);
                 if (weighIns == null) return NotFound($"No weigh ins are available");
 
