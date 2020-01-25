@@ -32,6 +32,9 @@ namespace WeightTracker.Api.Controllers
         /// </summary>
         protected readonly UserRepository userRepository;
 
+        /// <summary>
+        /// Manages JWT Data
+        /// </summary>
         protected readonly JwtUserService jwtUserService;
 
         /// <summary>
@@ -66,17 +69,6 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                /*
-                // Validation checks
-                var user = await userRepository.ReadAsync(model.UserId);
-                if (user == null) return BadRequest("User does not exist with provided Id");
-
-                // Verify that submitted User ID matches logged in User ID for standard users
-                if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, user.Id) == false)
-                {
-                    return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "User id must match currently authenticated user id" });
-                } */
-
                 if (jwtUserService.isStandardUser(HttpContext) == true)
                 {
                     // Add User ID for standard user
@@ -183,15 +175,6 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
-                /*
-                var user = await userRepository.ReadAsync(model.UserId);
-                if (user == null) return BadRequest("User does not exist with provided Id");
-
-                if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, user.Id) == false)
-                {
-                    return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "User id is invalid" });
-                } */
-
                 var weighIn = await weighInRepository.ReadAsync(id);
                 if (weighIn == null) return NotFound($"Weigh in doesn't exist with Id {id}");
 

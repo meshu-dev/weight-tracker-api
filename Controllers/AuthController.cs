@@ -50,7 +50,12 @@ namespace WeightTracker.Api.Controllers
                 if (Crypto.VerifyHashedPassword(existingUser.Password, authModel.Password) == true)
                 {
                     var token = _jwtService.CreateToken(existingUser);
-                    return Ok(new { Token = token });
+
+                    return Ok(new {
+                        Token = token,
+                        UserId = existingUser.Id,
+                        UnitId = existingUser.UnitId
+                    });
                 }
             }
             return Unauthorized();

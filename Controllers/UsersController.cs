@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeightTracker.Api.Models;
 using WeightTracker.Api.Repositories;
+using WeightTracker.Api.Services;
 
 namespace WeightTracker.Api.Controllers
 {
@@ -35,16 +36,23 @@ namespace WeightTracker.Api.Controllers
         protected readonly UnitRepository unitRepository;
 
         /// <summary>
+        /// Manages JWT Data
+        /// </summary>
+        protected readonly JwtUserService jwtUserService;
+
+        /// <summary>
         /// Contructor used to create user controller
         /// </summary>
         public UsersController(
             Repository<UserModel> userRepository,
             Repository<RoleModel> roleRepository,
-            Repository<UnitModel> unitRepository
+            Repository<UnitModel> unitRepository,
+            JwtUserService jwtUserService
         ) {
             this.userRepository = (UserRepository) userRepository;
             this.roleRepository = (RoleRepository) roleRepository;
             this.unitRepository = (UnitRepository) unitRepository;
+            this.jwtUserService = jwtUserService;
         }
 
         /// <summary>
@@ -168,6 +176,52 @@ namespace WeightTracker.Api.Controllers
 
                 user = await userRepository.UpdateAsync(model, role, unit);
                 if (user == null) return BadRequest("User could not be updated");
+
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                throw e;
+                return this.StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
+        }
+
+        /// <summary>
+        /// Create a user
+        /// </summary>
+        /// <param name="id">The id of the user</param>
+        /// <param name="model">The user data to update</param>
+        /// <returns>An ActionResult of type User</returns>
+        /// <response code="422">Validation error</response>
+        [HttpPut("{userId:int}/units/{unitId:int}")]
+        [Authorize(Roles = "Standard")]
+        public async Task<IActionResult> Put(int userId, int unitId)
+        {
+            try
+            {
+                // Validation checks
+                var user = await userRepository.ReadAsync(userId);
+                if (user == null) return BadRequest("User does not exist with provided Id");
+
+                // Verify that submitted User ID matches logged in User ID for standard users
+                if (jwtUserService.isStandardUser(HttpContext) == true && jwtUserService.verifyUserId(HttpContext, user.Id) == false)
+                {
+                    return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new { message = "User id must match currently authenticated user id" });
+                }
+
+                var unit = await unitRepository.ReadAsync(unitId);
+                if (unit == null) return NotFound($"Unit doesn't exist with Id {unitId}");
+
+                var role = await roleRepository.ReadAsync(user.RoleId);
+
+                // Update user's unit Id
+                if (user.UnitId != unitId)
+                {
+                    user.UnitId = unitId;
+                    user = await userRepository.UpdateAsync(user, role, unit);
+
+                    if (user == null) return BadRequest("User could not be updated");
+                }
 
                 return Ok(user);
             }

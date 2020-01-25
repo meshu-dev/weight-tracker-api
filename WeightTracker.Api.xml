@@ -110,7 +110,12 @@
             Manages units in data store
             </summary>
         </member>
-        <member name="M:WeightTracker.Api.Controllers.UsersController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.RoleModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel})">
+        <member name="F:WeightTracker.Api.Controllers.UsersController.jwtUserService">
+            <summary>
+            Manages JWT Data
+            </summary>
+        </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.#ctor(WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UserModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.RoleModel},WeightTracker.Api.Repositories.Repository{WeightTracker.Api.Models.UnitModel},WeightTracker.Api.Services.JwtUserService)">
             <summary>
             Contructor used to create user controller
             </summary>
@@ -152,6 +157,15 @@
             <returns>An ActionResult of type User</returns>
             <response code="422">Validation error</response>
         </member>
+        <member name="M:WeightTracker.Api.Controllers.UsersController.Put(System.Int32,System.Int32)">
+            <summary>
+            Create a user
+            </summary>
+            <param name="id">The id of the user</param>
+            <param name="model">The user data to update</param>
+            <returns>An ActionResult of type User</returns>
+            <response code="422">Validation error</response>
+        </member>
         <member name="M:WeightTracker.Api.Controllers.UsersController.Delete(System.Int32)">
             <summary>
             Delete a user by id
@@ -171,6 +185,11 @@
         <member name="F:WeightTracker.Api.Controllers.WeighInsController.userRepository">
             <summary>
             Manages users in data store
+            </summary>
+        </member>
+        <member name="F:WeightTracker.Api.Controllers.WeighInsController.jwtUserService">
+            <summary>
+            Manages JWT Data
             </summary>
         </member>
         <member name="F:WeightTracker.Api.Controllers.WeighInsController.userUnitConverter">
