@@ -45,7 +45,7 @@ namespace WeightTracker.Api.Repositories
 
             if (entity == null) return null;
 
-            return mapper.Map<WeighInModel>(entity);
+            return mapper.Map<UserWeighInModel>(entity);
         }
 
         public async Task<WeighInModel> ReadAsync(int id)
@@ -55,7 +55,7 @@ namespace WeightTracker.Api.Repositories
 
             if (entity == null) return null;
 
-            return mapper.Map<WeighInModel>(entity);
+            return mapper.Map<UserWeighInModel>(entity);
         }
 
         public async Task<WeighInModel> ReadAsync(int id, bool isTracked)
@@ -68,7 +68,7 @@ namespace WeightTracker.Api.Repositories
             }
             if (entity == null) return null;
 
-            return mapper.Map<WeighInModel>(entity);
+            return mapper.Map<UserWeighInModel>(entity);
         }
 
         private IQueryable<WeighIn> ReadQueryable(int id)
