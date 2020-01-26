@@ -52,14 +52,12 @@ namespace WeightTracker.Api.Helpers
             if (unitName == "st lbs")
             {
                 int stone = (int) _unitConverter.KilogramsToStone(doubleValue);
-
                 double pounds = _unitConverter.KilogramsToPounds(doubleValue) % 14;
 
-                string[] units = value.Split(" ");
-                return stone.ToString() + " " + units[0] + " " + pounds.ToString() + " " + units[1]; 
+                return stone.ToString() + "." + pounds.ToString(); 
             }
             doubleValue = Math.Round(doubleValue, 2, MidpointRounding.AwayFromZero);
-            return doubleValue.ToString() + " " + unitName;
+            return doubleValue.ToString();
         }
     }
     #pragma warning restore CS1591

@@ -29,26 +29,19 @@ namespace WeightTracker.Api.Models
         public override string Value {
             get
             {
-                return _userUnitConverter
+                if (this.User != null)
+                {
+                    return _userUnitConverter
                     .ConvertToUserUnit(
                         this.User.UnitShortName,
                         _value
                     );
+                }
+                return _value;
             }
             set
             {
-                if (this.User != null)
-                {
-                    _value = _userUnitConverter
-                        .ConvertToBaseUnit(
-                            this.User.UnitShortName,
-                            value
-                        );
-                }
-                else
-                {
-                    _value = value;
-                }
+                _value = value;
             }
         }
     }

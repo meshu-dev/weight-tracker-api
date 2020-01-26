@@ -54,7 +54,9 @@ namespace WeightTracker.Api.Controllers
                     return Ok(new {
                         Token = token,
                         UserId = existingUser.Id,
-                        UnitId = existingUser.UnitId
+                        UnitId = existingUser.UnitId,
+                        UnitName = existingUser.UnitName,
+                        UnitShortName = existingUser.UnitShortName
                     });
                 }
             }

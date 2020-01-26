@@ -69,20 +69,23 @@ namespace WeightTracker.Api.Controllers
         {
             try
             {
+                UserModel user = null;
+
                 if (jwtUserService.isStandardUser(HttpContext) == true)
                 {
                     // Add User ID for standard user
                     model.UserId = jwtUserService.getUserId(HttpContext);
+                    user = await userRepository.ReadAsync(model.UserId);
                 }
                 else
                 {
                     // Verify User ID for admin user
-                    var user = await userRepository.ReadAsync(model.UserId);
+                    user = await userRepository.ReadAsync(model.UserId);
                     if (user == null) return BadRequest("User does not exist with provided Id");
                 }
 
                 // Convert to base unit
-                //model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitName, model.Value);
+                model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitShortName, model.Value);
 
                 // Save
                 var weighIn = await weighInRepository.CreateAsync(model);
@@ -178,19 +181,24 @@ namespace WeightTracker.Api.Controllers
                 var weighIn = await weighInRepository.ReadAsync(id);
                 if (weighIn == null) return NotFound($"Weigh in doesn't exist with Id {id}");
 
+                UserModel user = null;
                 model.Id = id;
                 
                 if (jwtUserService.isStandardUser(HttpContext) == true)
                 {
                     // Add User ID for standard user
                     model.UserId = jwtUserService.getUserId(HttpContext);
+                    user = await userRepository.ReadAsync(model.UserId);
                 }
                 else
                 {
                     // Verify User ID for admin user
-                    var user = await userRepository.ReadAsync(model.UserId);
+                    user = await userRepository.ReadAsync(model.UserId);
                     if (user == null) return BadRequest("User does not exist with provided Id");
                 }
+
+                // Convert to base unit
+                model.Value = userUnitConverter.ConvertToBaseUnit(user.UnitShortName, model.Value);
 
                 weighIn = await weighInRepository.UpdateAsync(model);
                 if (weighIn == null) return BadRequest("Weigh in could not be updated");

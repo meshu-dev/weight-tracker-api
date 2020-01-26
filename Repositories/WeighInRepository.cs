@@ -22,7 +22,7 @@ namespace WeightTracker.Api.Repositories
 
             if (Save() == true)
             {
-                return mapper.Map<WeighInModel>(entity);
+                return mapper.Map<UserWeighInModel>(entity);
             }
             return null;
         }
@@ -34,7 +34,7 @@ namespace WeightTracker.Api.Repositories
 
             if (await SaveAsync() == true)
             {
-                return mapper.Map<WeighInModel>(entity);
+                return mapper.Map<UserWeighInModel>(entity);
             }
             return null;
         }
@@ -68,7 +68,7 @@ namespace WeightTracker.Api.Repositories
             }
             if (entity == null) return null;
 
-            return mapper.Map<UserWeighInModel>(entity);
+            return mapper.Map<WeighInModel>(entity);
         }
 
         private IQueryable<WeighIn> ReadQueryable(int id)
