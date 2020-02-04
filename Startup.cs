@@ -138,12 +138,12 @@ namespace WeightTracker.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //var httpsRedirect = bool.Parse(this.Config.GetSection("HttpsRedirect").Value);
+            var httpsRedirect = bool.Parse(this.Config.GetSection("HttpsRedirect").Value);
 
-            //if (httpsRedirect == true)
-            //{
-            app.UseHttpsRedirection();
-            //}
+            if (httpsRedirect == true)
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 
