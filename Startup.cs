@@ -161,7 +161,7 @@ namespace WeightTracker.Api
             var allowedHostsList = allowedHosts.Split(" ");
 
             app.UseCors(c => {
-                c.WithOrigins(allowedHostsList)
+                c.WithOrigins("http://localhost:4200")
                  .AllowCredentials()
                  .AllowAnyMethod()
                  .AllowAnyHeader()
