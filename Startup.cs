@@ -138,7 +138,13 @@ namespace WeightTracker.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            var httpsRedirect = bool.Parse(this.Config.GetSection("HttpsRedirect").Value);
+
+            if (httpsRedirect == true)
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseRouting();
 
             app.UseSwagger();
@@ -151,8 +157,11 @@ namespace WeightTracker.Api
                 s.RoutePrefix = "swagger";
             });
 
+            var allowedHosts = this.Config.GetSection("AllowedHosts").Value;
+            var allowedHostsList = allowedHosts.Split(" ");
+
             app.UseCors(c => {
-                c.WithOrigins("http://localhost:4200")
+                c.WithOrigins(allowedHostsList)
                  .AllowCredentials()
                  .AllowAnyMethod()
                  .AllowAnyHeader()
