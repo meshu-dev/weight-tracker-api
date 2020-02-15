@@ -161,7 +161,7 @@ namespace WeightTracker.Api
             //var allowedHostsList = allowedHosts.Split(" ");
 
             app.UseCors(c => {
-                c.WithOrigins("http://localhost:4200")
+                c.WithOrigins("http://test.wt.meshu.site")
                  .AllowCredentials()
                  .AllowAnyMethod()
                  .AllowAnyHeader()
