@@ -157,16 +157,16 @@ namespace WeightTracker.Api
                 s.RoutePrefix = "swagger";
             });
 
-            //var allowedHosts = this.Config.GetSection("AllowedHosts").Value;
-            //var allowedHostsList = allowedHosts.Split(" ");
+            var originHosts = this.Config.GetSection("OriginHosts").Get<string[]>();
 
             app.UseCors(c => {
-                c.WithOrigins("http://test.wt.meshu.site")
+                c.WithOrigins(originHosts)
                  .AllowCredentials()
                  .AllowAnyMethod()
                  .AllowAnyHeader()
                  .WithExposedHeaders("X-Total-Count");
             });
+
             app.UseAuthentication();
             app.UseAuthorization();
 
