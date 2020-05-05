@@ -13,12 +13,12 @@
 
         public double PoundsToKilograms(double pounds)
         {
-            return pounds / KilogramsToPoundsValue;
+            return pounds / PoundsToKilogramsValue;
         }
 
         public double KilogramsToPounds(double kilograms)
         {
-            return kilograms * PoundsToKilogramsValue;
+            return kilograms / KilogramsToPoundsValue;
         }
 
         public double PoundsToStone(double pounds)

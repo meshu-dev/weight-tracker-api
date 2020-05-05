@@ -125,6 +125,7 @@ namespace WeightTracker.Api.Repositories
                 .AsNoTracking()
                 .Include(w => w.User)
                 .ThenInclude(u => u.Unit)
+                .OrderByDescending(w => w.Date)
                 .AsQueryable();
         }
 
