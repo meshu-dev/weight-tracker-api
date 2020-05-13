@@ -183,6 +183,11 @@ namespace WeightTracker.Api.Repositories
             var entity = await context.Users.FindAsync(model.Id);
             if (entity == null) return null;
 
+            if (model.Password != entity.Password)
+            {
+                model.Password = Crypto.HashPassword(model.Password);
+            }
+
             mapper.Map(model, entity);
 
             if (await SaveAsync() == true)
@@ -203,12 +208,12 @@ namespace WeightTracker.Api.Repositories
             entity.Role = mapper.Map<Role>(roleModel);
             entity.Unit = mapper.Map<Unit>(unitModel);
 
-            mapper.Map(model, entity);
-
             if (model.Password != entity.Password)
             {
                 model.Password = Crypto.HashPassword(model.Password);
             }
+
+            mapper.Map(model, entity);
 
             if (await SaveAsync() == true)
             {
