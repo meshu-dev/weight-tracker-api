@@ -164,12 +164,12 @@ namespace WeightTracker.Api.Repositories
             var entity = context.Users.Find(model.Id);
             if (entity == null) return null;
 
-            mapper.Map(model, entity);
-
             if (model.Password != entity.Password)
             {
                 model.Password = Crypto.HashPassword(model.Password);
             }
+
+            mapper.Map(model, entity);
 
             if (Save() == true)
             {
